@@ -1,0 +1,99 @@
+Install Required Softwares
+	NodeJS, MongoDB, VS Code, MongoDB Compass, postman
+	Environment variable path set for MongoDB(if Not Working)
+Create Parent Folder
+	frontend
+	backend
+		run npm init
+			create index.js
+			install required libraries
+				mongoose, express, jsonwebtoken, morgan, cors, bcryptjs, dotenv
+				nodemon
+			create config/.env, db.js
+				Add PORT, MONGO_URI, JWT_SECRET in .env
+			Create Server in Index.js
+			setup script in package.json for nodemon
+			create db connection in DB.js
+			create a simple get api
+			create Models
+				Contact
+					{
+						"name": "Alok Kumar Sharma",
+						"email": "alok@example.com",
+						"phone": 9876543210,
+						"subject": "Admission Inquiry",
+						"message": "I would like to know about the admission process for class 1."
+					}
+				Event
+					{
+						"title": "Science Exhibition",
+						"description": "Students will showcase their science projects and innovative models. Parents and teachers are invited to explore and encourage the budding scientists.",
+						"shortDescription": "Showcase of student-made science projects.",
+						"date": "2025-08-20T10:00:00.000Z",
+						"location": "School Science Block"
+					}
+				Gallery
+					{
+						"title": "Annual Day 2024",
+						"imagesUrl": "https://picsum.photos/id/1018/600/400, https://picsum.photos/id/1024/600/400, https://picsum.photos/id/1035/600/400",
+						"date": "2024-12-15T00:00:00.000Z"
+					}
+				Notice
+					{
+						"title": "Independence Day Celebration",
+						"description": "All students are requested to attend the Independence Day celebration on 15th August at 8:00 AM sharp.",
+						"date": "2025-08-10T00:00:00.000Z",
+						"category": "Event"
+					}
+				Teacher
+					{
+						"name": "Shalini Pathak",
+						"subject": "General Knowledge",
+						"designation": "Quiz Trainer",
+						"bio": "Shalini encourages curiosity and awareness by conducting weekly quizzes, debates, and knowledge-based competitions.",
+						"image": "https://picsum.photos/id/1022/300/300"
+					}
+			create route folder
+			create controllers folder
+				create APIs for all Models and required methods like GET POST PUT DELETE
+				create auth APIs
+				create auth middleware
+
+	Frontend
+		download starter project
+		run npm install
+		Setup routes
+		Setup Dashboard Routes
+		bind apis of home page
+		Admission Page
+			use reactive forms
+			bind form with html
+			create pdf design
+			install jspdf html2canvas
+			implement pdf download functionality
+			Bind pdf with data
+			Bind Student Image
+		Notices
+		Events
+		Gallery
+		Teachers
+		Contact US
+		create auth service
+		create auth guard
+		create auth interceptor
+		Authentication on LogIn
+		LogOut on Header
+		Contact US Dashboard
+		Gallery Dashboard
+
+For Learners
+		Teachers Dashboard
+		Notice Dashboard
+		Event Dashboard
+		
+
+
+			
+			
+			
+			

@@ -1,0 +1,81 @@
+<!-- teachers.component.html -->
+<div class="teachers-page">
+  <div class="teachers-container">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-content">
+        <span class="header-subtitle">Our Faculty</span>
+        <h1 class="header-title">Meet Our Teachers</h1>
+        <p class="header-description">Dedicated educators committed to nurturing young minds and fostering academic excellence
+        </p>
+      </div>
+    </div>
+
+    <!-- Teachers Grid -->
+    <div class="teachers-grid">
+      @for(teacher of teachers; track $index){
+      <div class="teacher-card">
+        
+        <!-- Teacher Image -->
+        <div class="teacher-image-wrapper">
+          <img 
+            [src]="teacher.image" 
+            [alt]="teacher.name"
+            class="teacher-image"
+          />
+          <div class="teacher-subject">
+            {{teacher.subject}}
+          </div>
+        </div>
+
+        <!-- Teacher Info -->
+        <div class="teacher-info">
+          <h3 class="teacher-name">{{teacher.name}}</h3>
+          <div class="teacher-designation">{{teacher.designation}}</div>
+          
+          <div class="teacher-bio">
+            {{teacher.bio}}
+          </div>
+
+          <!-- Experience & Qualification (optional) -->
+          @if (teacher.experience || teacher.qualification) {
+            <div class="teacher-meta">
+
+              @if (teacher.experience) {
+                <span class="meta-item">
+                  <i class="far fa-clock"></i>
+                  {{teacher.experience}} years
+                </span>
+              }
+
+              @if (teacher.qualification) {
+                <span class="meta-item">
+                  <i class="far fa-file-alt"></i>
+                  {{teacher.qualification}}
+                </span>
+              }
+
+            </div>
+          }
+
+        </div>
+
+      </div>
+      }
+    </div>
+
+    <!-- Empty State -->
+    @if(teachers.length === 0){
+    <div class="empty-state">
+      <i class="fas fa-chalkboard-teacher"></i>
+      <h3>Teacher profiles coming soon</h3>
+      <p>Our dedicated faculty information will be updated shortly</p>
+    </div>
+    }
+
+  </div>
+</div>
+
+<!-- Font Awesome (keep in index.html ideally) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

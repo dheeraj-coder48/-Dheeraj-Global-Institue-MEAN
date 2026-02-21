@@ -1,0 +1,156 @@
+<!-- home.component.html -->
+<main class="home-main">
+  <app-hero></app-hero>
+  
+  <!-- Award Section -->
+  <section class="award-section">
+    <div class="container">
+      <div class="award-grid">
+        <div class="award-content">
+          <div class="award-badge">
+            <span class="badge-line"></span>
+            <span class="badge-text">K12 Digest® Featured</span>
+            <span class="badge-line"></span>
+          </div>
+          
+          <h2 class="award-title">
+            <span class="title-highlight">“MUST WATCH</span>
+            <span class="title-main">BOARDING SCHOOL”</span>
+          </h2>
+          
+          <div class="award-year">
+            <span class="year-number">2025</span>
+            <span class="year-label">Recognition</span>
+          </div>
+          
+          <div class="award-description">
+            <p>
+              <strong>Dheeraj Global Institute</strong> is honored to be featured as a
+              <strong class="accent-text">“Must Watch Boarding School”</strong> 
+              for 2024 in the latest issue of K12 Digest®. This prestigious 
+              recognition highlights our innovative approach to education, our 
+              commitment to fostering leadership and resilience, and the unique 
+              opportunities we provide for young men to thrive academically, 
+              athletically, and personally.
+            </p>
+          </div>
+          
+          <div class="award-stats">
+            <div class="stat-item">
+              <span class="stat-number">#1</span>
+              <span class="stat-label">Top Boarding School</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">25+</span>
+              <span class="stat-label">Years Legacy</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Success Rate</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="award-media">
+          <div class="media-wrapper">
+            <div class="media-decoration">
+              <div class="decoration-circle"></div>
+              <div class="decoration-dots"></div>
+            </div>
+            <img 
+              src="assets/images/award.png" 
+              alt="Dheeraj Global Institute Award" 
+              class="award-image"
+            />
+            <div class="media-caption">
+              <span class="caption-icon">🏆</span>
+              <span class="caption-text">Excellence in Education 2024</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section with Video -->
+  <section class="about-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Discover Our Legacy</span>
+        <h2 class="section-title">
+          Get to Know 
+          <span class="title-accent">Dheeraj Global Institute</span>
+        </h2>
+        <div class="title-decoration">
+          <span class="decoration-dot"></span>
+          <span class="decoration-line"></span>
+          <span class="decoration-dot"></span>
+        </div>
+      </div>
+      
+      <div class="about-grid">
+        <div class="about-content">
+          <p class="about-text">
+            Dheeraj Global Institute is a prestigious institution dedicated to nurturing young
+            minds and fostering holistic development. Our mission is to provide a
+            transformative educational experience that empowers students to excel
+            academically, develop leadership skills, and cultivate a strong sense of
+            community and values.
+          </p>
+          
+          <div class="about-features">
+            <div class="feature-item">
+              <div class="feature-icon">🎓</div>
+              <div class="feature-text">
+                <h4>Academic Excellence</h4>
+                <p>Top-tier curriculum & faculty</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">🌟</div>
+              <div class="feature-text">
+                <h4>Holistic Development</h4>
+                <p>Beyond academics</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">🤝</div>
+              <div class="feature-text">
+                <h4>Strong Community</h4>
+                <p>Values & leadership</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="about-video">
+          <div class="video-wrapper">
+            <div class="video-decoration"></div>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/m8v7Y5quXNc?si=2O7mIfL2u8XkQaPS&amp;start=13"
+                title="Dheeraj Global Institute Video Tour"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                class="video-frame"
+              ></iframe>
+              <div class="video-overlay">
+                <div class="play-button">
+                  <span class="play-icon">▶</span>
+                </div>
+                <span class="video-caption">Watch our introduction video</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dynamic Components -->
+  <app-notice class="full-width-component"></app-notice>
+  <app-events class="full-width-component"></app-events>
+  <app-achievements class="full-width-component"></app-achievements>
+  <app-gallery class="full-width-component"></app-gallery>
+</main>

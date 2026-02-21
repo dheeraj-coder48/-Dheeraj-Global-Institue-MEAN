@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Neha Verma",
+    "subject": "Computer Science",
+    "designation": "IT Coordinator",
+    "bio": "Neha Verma ensures students learn programming, web development, and digital literacy with practical exposure to real-world tech.",
+    "image": "https://picsum.photos/id/1015/300/300"
+  },
+  {
+    "name": "Manoj Singh",
+    "subject": "Hindi",
+    "designation": "Language Specialist",
+    "bio": "Manoj Singh brings rich cultural context to Hindi literature, grammar, and writing, making language classes engaging and rooted.",
+    "image": "https://picsum.photos/id/1016/300/300"
+  },
+  {
+    "name": "Pooja Sharma",
+    "subject": "Art & Craft",
+    "designation": "Creative Arts Teacher",
+    "bio": "Pooja inspires creativity in children by teaching painting, origami, and craftwork. Her students often participate in art competitions.",
+    "image": "https://picsum.photos/id/1017/300/300"
+  },
+  {
+    "name": "Deepak Mehta",
+    "subject": "Physical Education",
+    "designation": "Sports Coach",
+    "bio": "Deepak is a certified fitness coach who leads physical training and sports activities, promoting health and discipline among students.",
+    "image": "https://picsum.photos/id/1019/300/300"
+  },
+  {
+    "name": "Anjali Srivastava",
+    "subject": "Music",
+    "designation": "Music Director",
+    "bio": "Anjali trains students in classical and contemporary music, managing school choir and annual cultural performances.",
+    "image": "https://picsum.photos/id/1020/300/300"
+  },
+  {
+    "name": "Karan Joshi",
+    "subject": "Environmental Studies",
+    "designation": "Eco Club Coordinator",
+    "bio": "Karan blends theory with practice to teach eco-awareness and leads student-driven green initiatives and plantation drives.",
+    "image": "https://picsum.photos/id/1021/300/300"
+  },
+  {
+    "name": "Shalini Pathak",
+    "subject": "General Knowledge",
+    "designation": "Quiz Trainer",
+    "bio": "Shalini encourages curiosity and awareness by conducting weekly quizzes, debates, and knowledge-based competitions.",
+    "image": "https://picsum.photos/id/1022/300/300"
+  },
+  {
+    "name": "Vikas Anand",
+    "subject": "Moral Science",
+    "designation": "Value Education Mentor",
+    "bio": "Vikas guides students in ethics, behavior, and empathy through interactive storytelling and real-life examples.",
+    "image": "https://picsum.photos/id/1023/300/300"
+  }
+]

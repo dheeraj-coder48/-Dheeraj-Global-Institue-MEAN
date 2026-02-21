@@ -1,0 +1,259 @@
+<!-- footer.component.html -->
+<footer class="site-footer">
+  <div class="footer-wave">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+      <path d="M0,0 C480,100 960,100 1440,0 L1440,100 L0,100 Z" class="wave-fill"></path>
+    </svg>
+  </div>
+  
+  <div class="footer-main">
+    <div class="footer-container">
+      <!-- Footer Grid -->
+      <div class="footer-grid">
+        
+        <!-- Column 1: School Info -->
+        <div class="footer-col">
+          <div class="school-info">
+            <div class="logo-wrapper">
+              <div class="logo-glow"></div>
+              <img 
+                src="assets/images/logo.png" 
+                alt="Dheeraj Global Institute" 
+                class="footer-logo"
+              />
+            </div>
+            <h3 class="school-name">Dheeraj Global Institute</h3>
+            <p class="school-description">
+              A premier educational institution dedicated to nurturing young minds 
+              and fostering a love for learning since 2005.
+            </p>
+            
+            <!-- Social Links -->
+            <div class="social-links">
+              <a href="#" class="social-link" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" fill="currentColor"/>
+                </svg>
+              </a>
+              <a href="#" class="social-link" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" fill="none" stroke-width="2"/>
+                  <circle cx="12" cy="12" r="4" stroke="currentColor" fill="none" stroke-width="2"/>
+                  <circle cx="18" cy="6" r="1.5" fill="currentColor"/>
+                </svg>
+              </a>
+              <a href="#" class="social-link" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" fill="currentColor"/>
+                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="white"/>
+                </svg>
+              </a>
+              <a href="#" class="social-link" aria-label="Twitter">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" fill="currentColor"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Column 2: Quick Links -->
+        <div class="footer-col">
+          <h4 class="footer-title">
+            <span class="title-text">Quick Links</span>
+            <span class="title-underline"></span>
+          </h4>
+          
+          <ul class="footer-links">
+            <li>
+              <a routerLink="/" class="footer-link">
+                <svg class="link-icon" viewBox="0 0 24 24" width="16" height="16">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <polyline points="9 22 9 12 15 12 15 22" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/admission" class="footer-link">
+                <svg class="link-icon" viewBox="0 0 24 24" width="16" height="16">
+                  <path d="M4 4h16v16H4z" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2"/>
+                  <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>Admission</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/notices" class="footer-link">
+                <svg class="link-icon" viewBox="0 0 24 24" width="16" height="16">
+                  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <line x1="12" y1="8" x2="12" y2="12" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="12" cy="16" r="1" fill="currentColor"/>
+                </svg>
+                <span>Notices</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/events" class="footer-link">
+                <svg class="link-icon" viewBox="0 0 24 24" width="16" height="16">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2"/>
+                  <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2"/>
+                  <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>Events</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/gallery" class="footer-link">
+                <svg class="link-icon" viewBox="0 0 24 24" width="16" height="16">
+                  <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/>
+                  <polyline points="21 15 16 10 5 21" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>Gallery</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/teachers" class="footer-link">
+                <svg class="link-icon" viewBox="0 0 24 24" width="16" height="16">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="12" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>Teachers</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Column 3: Information -->
+        <div class="footer-col">
+          <h4 class="footer-title">
+            <span class="title-text">Information</span>
+            <span class="title-underline"></span>
+          </h4>
+          
+          <ul class="footer-links">
+            <li>
+              <a routerLink="/contact-us" class="footer-link">
+                <svg class="link-icon" viewBox="0 0 24 24" width="16" height="16">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8 10a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.574 2.81.7A2 2 0 0 1 22 16.92z" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>Contact Us</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/about-us" class="footer-link">
+                <svg class="link-icon" viewBox="0 0 24 24" width="16" height="16">
+                  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <line x1="12" y1="16" x2="12" y2="12" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="12" cy="8" r="1" fill="currentColor"/>
+                </svg>
+                <span>About Us</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/privacy-policy" class="footer-link">
+                <svg class="link-icon" viewBox="0 0 24 24" width="16" height="16">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>Privacy Policy</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/disclaimer" class="footer-link">
+                <svg class="link-icon" viewBox="0 0 24 24" width="16" height="16">
+                  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <line x1="12" y1="8" x2="12" y2="12" stroke="currentColor" stroke-width="2"/>
+                  <line x1="12" y1="16" x2="12.01" y2="16" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>Disclaimer</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Column 4: Contact Info -->
+        <div class="footer-col">
+          <h4 class="footer-title">
+            <span class="title-text">Get in Touch</span>
+            <span class="title-underline"></span>
+          </h4>
+          
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="12" cy="10" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </div>
+              <div class="contact-text">
+                <span class="contact-label">Address:</span>
+                <span class="contact-value">Andheri , Mumbai (400059), Maharashtra</span>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8 10a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.574 2.81.7A2 2 0 0 1 22 16.92z" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </div>
+              <div class="contact-text">
+                <span class="contact-label">Phone:</span>
+                <a href="tel:+919876543210" class="contact-value">+91 9876543210</a>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                  <rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <path d="M22 7L12 13 2 7" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </div>
+              <div class="contact-text">
+                <span class="contact-label">Email:</span>
+                <a href="mailto:singhdheerajcs242547&#64;gmail.com" class="contact-value">singhdheerajcs242547&#64;gmail.com</a>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <polyline points="12 6 12 12 16 14" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </div>
+              <div class="contact-text">
+                <span class="contact-label">Office Hours:</span>
+                <span class="contact-value">Mon-Fri: 8:00 AM - 4:00 PM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Copyright Bar -->
+  <div class="copyright-bar">
+    <div class="footer-container">
+      <div class="copyright-content">
+        <p class="copyright-text">
+          © 2026 Dheeraj Global Institute. All rights reserved.
+        </p>
+        <!-- <div class="copyright-links">
+          <a routerLink="/privacy-policy">Privacy</a>
+          <span class="separator">•</span>
+          <a routerLink="/terms">Terms</a>
+          <span class="separator">•</span>
+          <a routerLink="/sitemap">Sitemap</a>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Alok Kumar Sharma",
+    "email": "alok@example.com",
+    "phone": 9876543210,
+    "subject": "Admission Inquiry",
+    "message": "I would like to know about the admission process for class 1."
+  },
+  {
+    "name": "Priya Verma",
+    "email": "priya.verma@gmail.com",
+    "phone": 9123456780,
+    "subject": "Website Feedback",
+    "message": "The website is very informative. Great job!"
+  },
+  {
+    "name": "Ravi Singh",
+    "email": "ravi.singh@yahoo.com",
+    "phone": 9988776655,
+    "subject": "Event Participation",
+    "message": "I want to participate in the upcoming annual function. Please guide."
+  },
+  {
+    "name": "Meera Joshi",
+    "email": "meera.joshi@outlook.com",
+    "phone": 9012345678,
+    "subject": "Photo Removal Request",
+    "message": "Please remove my child's photo from the gallery section."
+  }
+]

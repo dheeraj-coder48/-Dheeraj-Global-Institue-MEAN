@@ -1,0 +1,199 @@
+<!-- gallery.component.html -->
+<div class="gallery-page">
+  <div class="gallery-container">
+    
+    <!-- Page Header with Beautiful Fonts -->
+    <div class="gallery-header">
+      <span class="header-subtitle">Moments That Matter</span>
+      <h1 class="header-title">Gallery</h1>
+      <p class="header-description">
+        Explore the vibrant moments captured at Dheeraj Global Institute, showcasing our
+        students' achievements, events, and the spirit of our community.
+      </p>
+    </div>
+
+    <!-- Gallery Grid - Only one image per card -->
+    <div class="gallery-grid">
+      @for(gallery of galleries; track gallery._id){
+        <div class="gallery-item" [style.animation-delay]="$index * 0.1 + 's'">
+          
+          <!-- Gallery Card -->
+          <div class="gallery-card" (click)="openGalleryModal(gallery)">
+            
+            <!-- Thumbnail Image (always first image) -->
+            <div class="card-preview">
+              <img
+                [src]="sanitizeUrl(gallery.images[0])"
+                [alt]="gallery.title"
+                class="thumbnail-image"
+                loading="lazy"
+              />
+              
+              <!-- Image count badge (shows if multiple images) -->
+              @if(gallery.images.length > 1){
+                <div class="image-count-badge">
+                  <i class="fas fa-images"></i>
+                  <span>{{gallery.images.length}} photos</span>
+                </div>
+              }
+            </div>
+
+            <!-- Card Footer -->
+            <div class="card-footer">
+              <h3 class="gallery-title">{{gallery.title}}</h3>
+              <div class="gallery-meta">
+                <i class="far fa-calendar-alt"></i>
+                <span>{{gallery.date | date}}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      }
+    </div>
+
+    <!-- Note to Parents Section -->
+    <div class="notice-section">
+      <div class="notice-card">
+        
+        <!-- Notice Header -->
+        <div class="notice-header">
+          <div class="header-icon">
+            <i class="fas fa-bullhorn"></i>
+          </div>
+          <h2 class="notice-title">Note to Parents and Students</h2>
+          <div class="header-decoration"></div>
+        </div>
+
+        <!-- Notice Content -->
+        <div class="notice-content">
+          <ul class="notice-list">
+            <li class="notice-item">
+              <div class="item-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div class="item-text">
+                All images published here are approved by the school management.
+              </div>
+            </li>
+            
+            <li class="notice-item">
+              <div class="item-icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <div class="item-text">
+                If you wish to request the removal of any photo, kindly contact the
+                school office with valid details.
+              </div>
+            </li>
+            
+            <li class="notice-item">
+              <div class="item-icon">
+                <i class="fas fa-share-alt"></i>
+              </div>
+              <div class="item-text">
+                Sharing these images on social media should always reflect positively
+                on the school and its values.
+              </div>
+            </li>
+          </ul>
+
+          <!-- Footer Message -->
+          <div class="notice-footer">
+            <div class="footer-decoration">
+              <i class="fas fa-heart"></i>
+              <i class="fas fa-heart"></i>
+              <i class="fas fa-heart"></i>
+            </div>
+            <p class="footer-text">
+              We hope you enjoy browsing through these cherished moments!
+            </p>
+          </div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="notice-decoration">
+          <div class="decoration-circle"></div>
+          <div class="decoration-dots"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Instagram-style Modal (kept same) -->
+    <div class="gallery-modal" [class.active]="selectedGallery" (click)="closeModal()">
+      <div class="modal-container" (click)="$event.stopPropagation()">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <div class="modal-info">
+            <h2 class="modal-title">{{selectedGallery?.title}}</h2>
+            <span class="modal-date">{{selectedGallery?.date | date}}</span>
+          </div>
+          <button class="modal-close" (click)="closeModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Image Carousel -->
+        <div class="modal-carousel">
+          @if(selectedGallery){
+            <div class="carousel-container">
+              <img
+                [src]="sanitizeUrl(selectedGallery.images[currentImageIndex])"
+                [alt]="selectedGallery.title"
+                class="carousel-image"
+              />
+
+              @if(selectedGallery.images.length > 1){
+                <button class="carousel-nav prev" (click)="prevImage($event)">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-nav next" (click)="nextImage($event)">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              }            
+            </div>
+
+            @if(selectedGallery.images.length > 1){
+              <div class="image-counter">
+                <span>{{currentImageIndex + 1}} / {{selectedGallery.images.length}}</span>
+              </div>
+            }
+
+            @if(selectedGallery.images.length > 1){
+              <div class="thumbnail-strip">
+                @for(image of selectedGallery.images; track $index){
+                  <div 
+                    class="thumbnail-item" 
+                    [class.active]="$index === currentImageIndex"
+                    (click)="setImageIndex($event, $index)"
+                  >
+                    <img
+                      [src]="sanitizeUrl(image)"
+                      [alt]="'Thumbnail ' + ($index + 1)"
+                      class="thumbnail-img"
+                    />
+                  </div>
+                }
+              </div>
+            }
+          }
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    @if(galleries.length === 0){
+      <div class="empty-state">
+        <i class="fas fa-images"></i>
+        <h3>No Gallery Images</h3>
+        <p>Check back soon for updates</p>
+      </div>
+    }
+
+  </div>
+</div>
+
+<!-- Font Awesome (keep in index.html) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

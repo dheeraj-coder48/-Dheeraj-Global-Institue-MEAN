@@ -1,0 +1,296 @@
+<!-- events-dashboard.component.html -->
+<div class="dashboard-page">
+  <div class="dashboard-container">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-icon">
+        <i class="fas fa-calendar-alt"></i>
+      </div>
+      <h1 class="header-title">Events Dashboard</h1>
+      <p class="header-description">
+        Manage all school events and activities
+      </p>
+      <div class="header-decoration"></div>
+    </div>
+
+    <!-- Stats Cards - Update with real data -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-calendar-check"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Total Events</span>
+          <span class="stat-value">{{events.length}}</span>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Upcoming</span>
+          <span class="stat-value">{{getUpcomingEvents()}}</span>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Completed</span>
+          <span class="stat-value">{{getCompletedEvents()}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Event Button -->
+    <div class="action-bar">
+      <button class="add-event-btn" (click)="openAddModal()">
+        <i class="fas fa-plus"></i>
+        <span>Add New Event</span>
+      </button>
+    </div>
+
+    <!-- Table Wrapper -->
+    <div class="table-wrapper">
+      <table class="events-table">
+        <thead>
+          <tr>
+            <th>Event Title</th>
+            <th>Short Description</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th class="actions-col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let event of events; let i = index" class="table-row">
+            <td>
+              <div class="event-title-cell">
+                <i class="fas fa-calendar-day"></i>
+                <span>{{event.title}}</span>
+              </div>
+            </td>
+            <td>
+              <span class="short-desc-badge">
+                <i class="fas fa-align-left"></i>
+                {{event.shortDescription}}
+              </span>
+            </td>
+            <td>
+              <span class="date-badge">
+                <i class="far fa-calendar"></i>
+                {{event.date | date:'mediumDate'}}
+              </span>
+            </td>
+            <td>
+              <span class="location-badge">
+                <i class="fas fa-map-marker-alt"></i>
+                {{event.location}}
+              </span>
+            </td>
+            <td class="actions-col">
+              <div class="action-buttons">
+                <button class="action-btn edit-btn" (click)="editEvent(event)" title="Edit Event">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button class="action-btn delete-btn" (click)="deleteEvent(event, i)" title="Delete Event">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="events.length === 0">
+            <td colspan="5" class="empty-row">
+              <div class="empty-message">
+                <i class="fas fa-calendar-times"></i>
+                <p>No events found</p>
+                <span>Click the "Add New Event" button to create your first event</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Event Modal (Add/Edit) -->
+    <div class="modal-overlay" [class.active]="showModal" (click)="closeModal()">
+      <div class="modal-container" (click)="$event.stopPropagation()">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <div class="modal-title-wrapper">
+            <i class="fas fa-calendar-plus modal-title-icon"></i>
+            <h2 class="modal-title">{{ isEditMode ? 'Edit' : 'Add' }} Event</h2>
+          </div>
+          <button class="modal-close" (click)="closeModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="event-form">
+            
+            <!-- Two Column Layout -->
+            <div class="form-grid">
+              
+              <!-- Left Column - Event Details -->
+              <div class="form-left">
+                
+                <!-- Event Title -->
+                <div class="form-group">
+                  <label class="form-label">
+                    <i class="fas fa-heading"></i>
+                    <span>Event Title <span class="required-star">*</span></span>
+                  </label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-calendar-day input-icon"></i>
+                    <input
+                      type="text"
+                      formControlName="title"
+                      class="form-control"
+                      placeholder="Enter event title"
+                    />
+                    <div class="input-highlight"></div>
+                  </div>
+                  <div class="error-message" *ngIf="eventForm.get('title')?.invalid && eventForm.get('title')?.touched">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Title is required</span>
+                  </div>
+                </div>
+
+                <!-- Short Description -->
+                <div class="form-group">
+                  <label class="form-label">
+                    <i class="fas fa-align-left"></i>
+                    <span>Short Description <span class="required-star">*</span></span>
+                  </label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-paragraph input-icon"></i>
+                    <input
+                      type="text"
+                      formControlName="shortDescription"
+                      class="form-control"
+                      placeholder="Brief description (will appear in cards)"
+                    />
+                    <div class="input-highlight"></div>
+                  </div>
+                  <div class="error-message" *ngIf="eventForm.get('shortDescription')?.invalid && eventForm.get('shortDescription')?.touched">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Short description is required</span>
+                  </div>
+                </div>
+
+                <!-- Date -->
+                <div class="form-group">
+                  <label class="form-label">
+                    <i class="fas fa-calendar"></i>
+                    <span>Event Date <span class="required-star">*</span></span>
+                  </label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-calendar-alt input-icon"></i>
+                    <input
+                      type="date"
+                      formControlName="date"
+                      class="form-control"
+                    />
+                    <div class="input-highlight"></div>
+                  </div>
+                  <div class="error-message" *ngIf="eventForm.get('date')?.invalid && eventForm.get('date')?.touched">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Date is required</span>
+                  </div>
+                </div>
+
+                <!-- Location -->
+                <div class="form-group">
+                  <label class="form-label">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Location <span class="required-star">*</span></span>
+                  </label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-map-pin input-icon"></i>
+                    <input
+                      type="text"
+                      formControlName="location"
+                      class="form-control"
+                      placeholder="Enter event location"
+                    />
+                    <div class="input-highlight"></div>
+                  </div>
+                  <div class="error-message" *ngIf="eventForm.get('location')?.invalid && eventForm.get('location')?.touched">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Location is required</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Right Column - Full Description -->
+              <div class="form-right">
+                <div class="form-group">
+                  <label class="form-label">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Full Description <span class="required-star">*</span></span>
+                  </label>
+                  <div class="input-wrapper textarea-wrapper">
+                    <i class="fas fa-pen input-icon textarea-icon"></i>
+                    <textarea
+                      formControlName="description"
+                      class="form-control textarea"
+                      rows="12"
+                      placeholder="Provide detailed description of the event..."
+                    ></textarea>
+                    <div class="input-highlight"></div>
+                  </div>
+                  <div class="error-message" *ngIf="eventForm.get('description')?.invalid && eventForm.get('description')?.touched">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Description is required</span>
+                  </div>
+                  <div class="help-text">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Include all important details, schedule, and instructions</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn-secondary" (click)="closeModal()">
+                <i class="fas fa-times"></i>
+                Cancel
+              </button>
+              <button 
+                type="submit" 
+                class="btn-primary" 
+                [disabled]="eventForm.invalid"
+              >
+                <i class="fas fa-check"></i>
+                {{ isEditMode ? 'Update Event' : 'Create Event' }}
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="modal-decoration">
+          <div class="decoration-circle"></div>
+          <div class="decoration-dots"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Font Awesome (keep in index.html) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

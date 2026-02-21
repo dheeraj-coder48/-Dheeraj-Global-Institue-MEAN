@@ -1,0 +1,21 @@
+<div class="ticker-section">
+  <div class="ticker-container">
+    <div class="ticker-label">
+      <i class="fas fa-calendar-alt"></i>
+      <span class="label-text">Upcoming Events</span>
+    </div>
+    <div class="ticker-track">
+      <marquee behavior="scroll" direction="left" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();">
+        <a [routerLink]="'/events'" class="ticker-link">
+          @for (event of events; track $index){
+          <span class="event-item">
+            <span class="event-title">{{event.title}}</span>
+            <span class="event-meta">{{event.date | date}} • {{event.location}}</span>
+            @if(!$last){<span class="separator">✦</span>}
+          </span>
+          }
+        </a>
+      </marquee>
+    </div>
+  </div>
+</div>

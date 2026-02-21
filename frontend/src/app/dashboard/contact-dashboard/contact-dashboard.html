@@ -1,0 +1,229 @@
+<!-- contact-dashboard.component.html -->
+<div class="dashboard-page">
+  <div class="dashboard-container">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-icon">
+        <i class="fas fa-address-book"></i>
+      </div>
+      <h1 class="header-title">Contact Enquiries</h1>
+      <p class="header-description">
+        Manage and view all contact form submissions
+      </p>
+      <div class="header-decoration"></div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Total Enquiries</span>
+          <span class="stat-value">{{contacts.length}}</span>
+        </div>
+      </div>
+      
+      <div >
+        <div class="stat-icon">
+          <!-- <i class="fas fa-clock"></i> -->
+        </div>
+        <div class="stat-content">
+          <!-- <span class="stat-label">New This Week</span>
+          <span class="stat-value">{{getNewThisWeek()}}</span> -->
+        </div>
+      </div>
+      
+      <div >
+        <div class="stat-icon">
+          <!-- <i class="fas fa-check-circle"></i> -->
+        </div>
+        <div class="stat-content">
+          <!-- <span class="stat-label">Responded</span>
+          <span class="stat-value">{{getRespondedCount()}}</span> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Table Wrapper -->
+    <div class="table-wrapper">
+      <table class="enquiries-table">
+        <thead>
+          <tr>
+            <th class="sr-col">Sr. No</th>
+            <th class="name-col">Name</th>
+            <th class="email-col">Email</th>
+            <th class="phone-col">Phone</th>
+            <th class="subject-col">Subject</th>
+            <th class="message-col">Message</th>
+            <th class="actions-col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(contact of contacts; track $index){
+          <tr class="table-row">
+            <td class="sr-col">{{$index + 1}}</td>
+            <td class="name-col">
+              <div class="user-info">
+                <i class="fas fa-user-circle"></i>
+                <span>{{contact.name}}</span>
+              </div>
+            </td>
+            <td class="email-col">
+              <a href="mailto:{{contact.email}}" class="email-link">
+                <i class="fas fa-envelope"></i>
+                {{contact.email}}
+              </a>
+            </td>
+            <td class="phone-col">
+              <a href="tel:{{contact.phone}}" class="phone-link">
+                <i class="fas fa-phone"></i>
+                {{contact.phone}}
+              </a>
+            </td>
+            <td class="subject-col">
+              <span class="subject-badge">{{contact.subject}}</span>
+            </td>
+            <td class="message-col">
+              <span class="message-preview" title="{{contact.message}}">
+                {{contact.message | slice:0:30}}{{contact.message.length > 30 ? '...' : ''}}
+              </span>
+            </td>
+            <td class="actions-col">
+              <div class="action-buttons">
+                <button class="action-btn view-btn" (click)="viewContact(contact)" title="View Details">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn delete-btn" (click)="deleteContact(contact)" title="Delete">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    @if(contacts.length === 0){
+    <div class="empty-state">
+      <i class="fas fa-inbox"></i>
+      <h3>No Enquiries Yet</h3>
+      <p>Contact form submissions will appear here</p>
+    </div>
+    }
+
+    <!-- View Modal -->
+    <div class="modal-overlay" [class.active]="showModal" (click)="closeModal()">
+      <div class="modal-container" (click)="$event.stopPropagation()">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <div class="modal-title-wrapper">
+            <i class="fas fa-file-alt modal-title-icon"></i>
+            <h2 class="modal-title">Enquiry Details</h2>
+          </div>
+          <button class="modal-close" (click)="closeModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          
+          <!-- Contact Details Grid -->
+          <div class="details-grid">
+            
+            <div class="detail-item">
+              <div class="detail-icon">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="detail-content">
+                <span class="detail-label">Full Name</span>
+                <span class="detail-value">{{selectedContact.name}}</span>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="detail-content">
+                <span class="detail-label">Email Address</span>
+                <a href="mailto:{{selectedContact.email}}" class="detail-value email-value">
+                  {{selectedContact.email}}
+                </a>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="detail-content">
+                <span class="detail-label">Phone Number</span>
+                <a href="tel:{{selectedContact.phone}}" class="detail-value phone-value">
+                  {{selectedContact.phone}}
+                </a>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-icon">
+                <i class="fas fa-tag"></i>
+              </div>
+              <div class="detail-content">
+                <span class="detail-label">Subject</span>
+                <span class="detail-value subject-value">{{selectedContact.subject}}</span>
+              </div>
+            </div>
+
+            <div class="detail-item full-width">
+              <div class="detail-icon">
+                <i class="fas fa-comment"></i>
+              </div>
+              <div class="detail-content">
+                <span class="detail-label">Message</span>
+                <p class="detail-message">{{selectedContact.message}}</p>
+              </div>
+            </div>
+
+            <div class="detail-item full-width" *ngIf="selectedContact.submittedAt">
+              <div class="detail-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="detail-content">
+                <span class="detail-label">Submitted On</span>
+                <span class="detail-value">{{selectedContact.submittedAt | date:'fullDate'}}</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button class="btn-close-modal" (click)="closeModal()">
+            <i class="fas fa-check"></i>
+            Close
+          </button>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="modal-decoration">
+          <div class="decoration-circle"></div>
+          <div class="decoration-dots"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Font Awesome (keep in index.html) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Alok Kumar Sharma",
+    "email": "alok.sharma@example.com",
+    "password": "hashed_password_123"
+  },
+  {
+    "name": "Riya Verma",
+    "email": "riya.verma@example.com",
+    "password": "hashed_password_456"
+  },
+  {
+    "name": "Amit Singh",
+    "email": "amit.singh@example.com",
+    "password": "hashed_password_789"
+  },
+  {
+    "name": "Neha Gupta",
+    "email": "neha.gupta@example.com",
+    "password": "hashed_password_abc"
+  },
+  {
+    "name": "Rahul Yadav",
+    "email": "rahul.yadav@example.com",
+    "password": "hashed_password_xyz"
+  }
+]

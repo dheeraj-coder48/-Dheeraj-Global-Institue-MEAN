@@ -1,0 +1,133 @@
+<div class="form-card">
+  <div class="form-header">
+    <div class="header-icon">
+      <i class="fas fa-paper-plane"></i>
+    </div>
+    <h3>Send us a Message</h3>
+    <p>We'd love to hear from you</p>
+    <div class="header-decoration"></div>
+  </div>
+
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+    
+    <div class="form-group">
+      <label>
+        <i class="fas fa-user"></i>
+        Full Name <span class="required-star">*</span>
+      </label>
+      <div class="input-wrapper">
+        <i class="fas fa-user input-icon"></i>
+        <input 
+          type="text" 
+          formControlName="name" 
+          placeholder="Enter your full name"
+          [class.is-invalid]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
+        >
+        <div class="input-highlight"></div>
+      </div>
+      <div class="error-message" *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
+        <i class="fas fa-exclamation-circle"></i>
+        <span>Name is required</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fas fa-envelope"></i>
+        Email Address <span class="required-star">*</span>
+      </label>
+      <div class="input-wrapper">
+        <i class="fas fa-envelope input-icon"></i>
+        <input 
+          type="email" 
+          formControlName="email" 
+          placeholder="you@example.com"
+          [class.is-invalid]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
+        >
+        <div class="input-highlight"></div>
+      </div>
+      <div class="error-message" *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+        <i class="fas fa-exclamation-circle"></i>
+        <span>Valid email is required</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fas fa-phone-alt"></i>
+        Phone Number <span class="required-star">*</span>
+      </label>
+      <div class="input-wrapper">
+        <i class="fas fa-phone-alt input-icon"></i>
+        <input 
+          type="tel" 
+          formControlName="phone" 
+          placeholder="+91-9876543210"
+          [class.is-invalid]="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched"
+        >
+        <div class="input-highlight"></div>
+      </div>
+      <div class="error-message" *ngIf="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched">
+        <i class="fas fa-exclamation-circle"></i>
+        <span>Phone is required</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fas fa-tag"></i>
+        Subject <span class="required-star">*</span>
+      </label>
+      <div class="input-wrapper">
+        <i class="fas fa-tag input-icon"></i>
+        <input 
+          type="text" 
+          formControlName="subject" 
+          placeholder="What is this regarding?"
+          [class.is-invalid]="contactForm.get('subject')?.invalid && contactForm.get('subject')?.touched"
+        >
+        <div class="input-highlight"></div>
+      </div>
+      <div class="error-message" *ngIf="contactForm.get('subject')?.invalid && contactForm.get('subject')?.touched">
+        <i class="fas fa-exclamation-circle"></i>
+        <span>Subject is required</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fas fa-comment"></i>
+        Message <span class="required-star">*</span>
+      </label>
+      <div class="input-wrapper textarea-wrapper">
+        <i class="fas fa-comment-dots input-icon textarea-icon"></i>
+        <textarea 
+          formControlName="message" 
+          rows="5" 
+          placeholder="Type your message here..."
+          [class.is-invalid]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
+        ></textarea>
+        <div class="input-highlight"></div>
+      </div>
+      <div class="error-message" *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched">
+        <i class="fas fa-exclamation-circle"></i>
+        <span>Message is required</span>
+      </div>
+    </div>
+
+    <button 
+      type="submit" 
+      class="submit-btn" 
+      [disabled]="contactForm.invalid"
+    >
+      <span class="btn-text">Send Message</span>
+      <i class="fas fa-paper-plane"></i>
+    </button>
+
+  </form>
+
+  <div class="form-decoration">
+    <div class="decoration-circle"></div>
+    <div class="decoration-dots"></div>
+  </div>
+</div>

@@ -1,0 +1,262 @@
+<!-- gallery-dashboard.component.html -->
+<div class="dashboard-page">
+  <div class="dashboard-container">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-icon">
+        <i class="fas fa-images"></i>
+      </div>
+      <h1 class="header-title">Gallery Dashboard</h1>
+      <p class="header-description">
+        Manage all gallery events and images
+      </p>
+      <div class="header-decoration"></div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Total Events</span>
+          <span class="stat-value">{{galleries.length}}</span>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-images"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Total Photos</span>
+          <span class="stat-value">{{getTotalPhotos()}}</span>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-star"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">This Year</span>
+          <span class="stat-value">{{getThisYearCount()}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Gallery Button -->
+    <div class="action-bar">
+      <button class="add-gallery-btn" (click)="openAddModal()">
+        <i class="fas fa-plus"></i>
+        <span>Add Gallery Event</span>
+      </button>
+    </div>
+
+    <!-- Table Wrapper -->
+    <div class="table-wrapper">
+      <table class="gallery-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Event Date</th>
+            <th>Photos</th>
+            <th class="actions-col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(gallery of galleries; track gallery._id){
+          <tr class="table-row">
+            <td>
+              <div class="title-cell">
+                <i class="fas fa-calendar-day"></i>
+                <span>{{gallery.title}}</span>
+              </div>
+            </td>
+            <td>
+              <span class="date-badge">
+                <i class="far fa-calendar"></i>
+                {{gallery.date | date}}
+              </span>
+            </td>
+            <td>
+              <div class="photo-strip">
+                @for(image of gallery.images; track $index){
+                  @if($index < 3){
+                    <div class="photo-thumb" [matTooltip]="'Photo ' + ($index + 1)">
+                      <img [src]="sanitizeUrl(image)" alt="Gallery image" class="thumb-img" />
+                    </div>
+                  }
+                }
+                @if(gallery.images.length > 3){
+                  <div class="photo-count">
+                    +{{gallery.images.length - 3}}
+                  </div>
+                }
+              </div>
+            </td>
+            <td class="actions-col">
+              <div class="action-buttons">
+                <button class="action-btn edit-btn" (click)="edit(gallery)" title="Edit Gallery">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button class="action-btn delete-btn" (click)="delete(gallery)" title="Delete Gallery">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    @if(galleries.length === 0){
+    <div class="empty-state">
+      <i class="fas fa-images"></i>
+      <h3>No Gallery Events Found</h3>
+      <p>Click the "Add Gallery Event" button to create your first gallery</p>
+    </div>
+    }
+
+    <!-- Gallery Modal (Add/Edit) -->
+    <div class="modal-overlay" [class.active]="showModal" (click)="closeModal()">
+      <div class="modal-container" (click)="$event.stopPropagation()">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <div class="modal-title-wrapper">
+            <i class="fas fa-plus-circle modal-title-icon"></i>
+            <h2 class="modal-title">{{isEdit ? 'Edit' : 'Add'}} Gallery Event</h2>
+          </div>
+          <button class="modal-close" (click)="closeModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form [formGroup]="selectedGallery" (ngSubmit)="onSubmit()" class="gallery-form">
+            
+            <!-- Form Fields -->
+            <div class="form-group">
+              <label class="form-label">
+                <i class="fas fa-heading"></i>
+                <span>Event Title <span class="required-star">*</span></span>
+              </label>
+              <div class="input-wrapper">
+                <i class="fas fa-calendar-day input-icon"></i>
+                <input
+                  type="text"
+                  formControlName="title"
+                  class="form-control"
+                  placeholder="Enter event title"
+                />
+                <div class="input-highlight"></div>
+              </div>
+              <div class="error-message" *ngIf="selectedGallery.get('title')?.invalid && selectedGallery.get('title')?.touched">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Title is required</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <i class="fas fa-calendar"></i>
+                <span>Event Date <span class="required-star">*</span></span>
+              </label>
+              <div class="input-wrapper">
+                <i class="fas fa-calendar-alt input-icon"></i>
+                <input
+                  type="date"
+                  formControlName="date"
+                  class="form-control"
+                />
+                <div class="input-highlight"></div>
+              </div>
+              <div class="error-message" *ngIf="selectedGallery.get('date')?.invalid && selectedGallery.get('date')?.touched">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Date is required</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <i class="fas fa-link"></i>
+                <span>Image URLs <span class="required-star">*</span></span>
+              </label>
+              <div class="input-wrapper textarea-wrapper">
+                <i class="fas fa-images input-icon textarea-icon"></i>
+                <textarea
+                  formControlName="imagesUrl"
+                  class="form-control textarea"
+                  rows="4"
+                  placeholder="Enter image URLs (comma-separated)&#10;Example: https://example.com/image1.jpg, https://example.com/image2.jpg"
+                ></textarea>
+                <div class="input-highlight"></div>
+              </div>
+              <div class="error-message" *ngIf="selectedGallery.get('imagesUrl')?.invalid && selectedGallery.get('imagesUrl')?.touched">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Image URLs are required</span>
+              </div>
+              <div class="help-text">
+                <i class="fas fa-info-circle"></i>
+                <span>Separate multiple URLs with commas</span>
+              </div>
+            </div>
+
+            <!-- Image Preview (if URLs entered) -->
+            @if(selectedGallery.get('imagesUrl')?.value && selectedGallery.get('imagesUrl')?.value.length > 0){
+            <div class="preview-section">
+              <label class="preview-label">
+                <i class="fas fa-eye"></i>
+                <span>Preview</span>
+              </label>
+              <div class="preview-grid">
+                @for(url of getPreviewUrls(); track $index){
+                  @if($index < 4){
+                    <div class="preview-item">
+                      <img [src]="sanitizeUrl(url)" alt="Preview" class="preview-img" />
+                    </div>
+                  }
+                }
+              </div>
+            </div>
+            }
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn-secondary" (click)="closeModal()">
+                <i class="fas fa-times"></i>
+                Cancel
+              </button>
+              <button 
+                type="submit" 
+                class="btn-primary" 
+                [disabled]="selectedGallery.invalid"
+              >
+                <i class="fas fa-check"></i>
+                {{isEdit ? 'Update' : 'Create'}}
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="modal-decoration">
+          <div class="decoration-circle"></div>
+          <div class="decoration-dots"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Font Awesome (keep in index.html) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

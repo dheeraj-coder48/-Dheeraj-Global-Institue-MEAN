@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Summer Vacation Notice",
+    "description": "School will remain closed from 10th May to 20th June due to summer vacation.",
+    "date": "2025-05-10T00:00:00.000Z",
+    "category": "Holiday"
+  },
+  {
+    "title": "Independence Day Celebration",
+    "description": "All students are requested to attend the Independence Day celebration on 15th August at 8:00 AM sharp.",
+    "date": "2025-08-10T00:00:00.000Z",
+    "category": "Event"
+  },
+  {
+    "title": "Parent-Teacher Meeting",
+    "description": "PTM for all classes will be held on 30th July. Attendance is mandatory.",
+    "date": "2025-07-25T00:00:00.000Z",
+    "category": "Meeting"
+  },
+  {
+    "title": "Result Declaration",
+    "description": "Final term results will be declared on 5th April. Parents are requested to collect the report cards.",
+    "date": "2025-04-01T00:00:00.000Z",
+    "category": "Academics"
+  }
+]

@@ -1,0 +1,464 @@
+// footer.component.scss
+
+:host {
+  --footer-bg: linear-gradient(135deg, #1E2B3A 0%, #2A3B4C 100%);
+  --footer-text: #FFFFFF;
+  --footer-text-muted: rgba(255, 255, 255, 0.7);
+  --footer-accent: #F9A826;
+  --footer-accent-light: #4ECDC4;
+  --footer-border: rgba(255, 255, 255, 0.1);
+  --footer-hover-bg: rgba(249, 168, 38, 0.1);
+  --shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.site-footer {
+  position: relative;
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  margin-top: 4rem;
+  box-shadow: var(--shadow);
+}
+
+// Wave Decoration
+.footer-wave {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  
+  svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 50px;
+  }
+  
+  .wave-fill {
+    fill: var(--footer-bg);
+    opacity: 0.1;
+  }
+}
+
+// Main Footer
+.footer-main {
+  position: relative;
+  padding: 4rem 0 2rem;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--footer-accent), var(--footer-accent-light), var(--footer-accent), transparent);
+  }
+}
+
+.footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  
+  @media (max-width: 768px) {
+    padding: 0 1.5rem;
+  }
+}
+
+// Footer Grid
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+  
+  @media (max-width: 1200px) {
+    gap: 2rem;
+  }
+  
+  @media (max-width: 992px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+  
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.footer-col {
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+  
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
+    }
+  }
+}
+
+// School Info
+.school-info {
+  text-align: left;
+}
+
+.logo-wrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 1.5rem;
+  
+  @media (max-width: 576px) {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.footer-logo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--footer-accent);
+  position: relative;
+  z-index: 2;
+  transition: var(--transition);
+  
+  &:hover {
+    transform: rotate(5deg) scale(1.05);
+    border-color: var(--footer-accent-light);
+  }
+}
+
+.logo-glow {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(249,168,38,0.3) 0%, transparent 70%);
+  animation: pulse 2s ease-in-out infinite;
+  z-index: 1;
+}
+
+.school-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, var(--footer-text) 0%, var(--footer-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.school-description {
+  color: var(--footer-text-muted);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+// Social Links
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: var(--footer-text);
+  transition: var(--transition);
+  text-decoration: none;
+  
+  svg {
+    transition: var(--transition);
+  }
+  
+  &:hover {
+    background: var(--footer-accent);
+    transform: translateY(-5px);
+    
+    svg {
+      transform: scale(1.1);
+      color: var(--footer-bg);
+    }
+  }
+  
+  @media (max-width: 576px) {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+// Footer Titles
+.footer-title {
+  position: relative;
+  margin-bottom: 2rem;
+  
+  .title-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, var(--footer-text) 0%, var(--footer-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .title-underline {
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--footer-accent), var(--footer-accent-light));
+    border-radius: 2px;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      filter: blur(4px);
+      opacity: 0.5;
+    }
+  }
+}
+
+// Footer Links
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+  li {
+    margin-bottom: 1rem;
+  }
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--footer-text-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  position: relative;
+  
+  .link-icon {
+    color: var(--footer-accent);
+    transition: var(--transition);
+  }
+  
+  &:hover {
+    color: var(--footer-text);
+    transform: translateX(5px);
+    
+    .link-icon {
+      transform: scale(1.1);
+      color: var(--footer-accent-light);
+    }
+    
+    &::after {
+      width: 100%;
+    }
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 24px;
+    width: 0;
+    height: 1px;
+    background: var(--footer-accent);
+    transition: var(--transition);
+  }
+}
+
+// Contact Info
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.contact-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: var(--footer-accent);
+  
+  svg {
+    transition: var(--transition);
+  }
+  
+  &:hover svg {
+    transform: scale(1.1);
+    color: var(--footer-accent-light);
+  }
+}
+
+.contact-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  
+  .contact-label {
+    font-size: 0.85rem;
+    color: var(--footer-accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .contact-value {
+    color: var(--footer-text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    transition: var(--transition);
+    
+    &:hover {
+      color: var(--footer-accent);
+    }
+  }
+  
+  a.contact-value {
+    cursor: pointer;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Copyright Bar
+.copyright-bar {
+  border-top: 1px solid var(--footer-border);
+  padding: 1.5rem 0;
+  margin-top: 2rem;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.copyright-content {
+  display: flex;
+   justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.copyright-text {
+  color: var(--footer-text-muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.copyright-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  
+  a {
+    color: var(--footer-text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    
+    &:hover {
+      color: var(--footer-accent);
+    }
+  }
+  
+  .separator {
+    color: var(--footer-border);
+  }
+}
+
+// Animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+// Responsive Adjustments
+@media (max-width: 576px) {
+  .footer-main {
+    padding: 3rem 0 1rem;
+  }
+  
+  .footer-title {
+    margin-bottom: 1.5rem;
+  }
+  
+  .contact-item {
+    gap: 0.75rem;
+  }
+  
+  .contact-icon {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+// Hover Effects
+.footer-col:hover .title-underline {
+  width: 70px;
+  transition: width 0.3s ease;
+}
+
+// Dark Mode Support
+@media (prefers-color-scheme: dark) {
+  :host {
+    --footer-bg: linear-gradient(135deg, #0A1A2A 0%, #1A2A3A 100%);
+  }
+}

@@ -1,0 +1,78 @@
+<!-- gallery.component.html -->
+<div class="gallery-page">
+  <div class="gallery-container">
+    
+    <!-- Page Header -->
+    <div class="gallery-header">
+      <span class="header-subtitle">Moments That Matter</span>
+      <h1 class="header-title">Gallery</h1>
+      <p class="header-description">
+        Explore the vibrant moments captured at Dheeraj Global Institute, showcasing our
+        students' achievements, events, and the spirit of our community.
+      </p>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid">
+      @for(gallery of galleries; track $index){
+      <div class="gallery-item" [style.animation-delay]="$index * 0.1 + 's'">
+        <a [routerLink]="'/gallery'" class="gallery-link">
+          
+          <!-- Image Container -->
+          <div class="image-container">
+            <img
+              [src]="gallery.imagesUrl.split(',')[0]"
+              [alt]="gallery.title"
+              class="gallery-image"
+              loading="lazy"
+            />
+            
+            <!-- Overlay -->
+            <div class="image-overlay">
+              <div class="overlay-content">
+                <span class="view-text">View Gallery</span>
+                <i class="fas fa-arrow-right"></i>
+              </div>
+            </div>
+            
+            <!-- Category Badge (optional) -->
+            <div class="image-badge" *ngIf="gallery.category">
+              {{gallery.category}}
+            </div>
+          </div>
+
+          <!-- Image Info -->
+          <div class="image-info">
+            <h3 class="image-title">{{gallery.title}}</h3>
+            <div class="image-meta">
+              <i class="far fa-calendar-alt"></i>
+              <span>{{gallery.date | date}}</span>
+            </div>
+            
+            <!-- Image Count (optional) -->
+            <div class="image-count" *ngIf="gallery.imageCount">
+              <i class="far fa-images"></i>
+              <span>{{gallery.imageCount}} photos</span>
+            </div>
+          </div>
+
+        </a>
+      </div>
+      }
+    </div>
+
+    <!-- Empty State -->
+    @if(galleries.length === 0){
+    <div class="empty-state">
+      <i class="fas fa-images"></i>
+      <h3>No Gallery Images</h3>
+      <p>Check back soon for updates</p>
+    </div>
+    }
+
+
+  </div>
+</div>
+
+<!-- Font Awesome (keep in index.html) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

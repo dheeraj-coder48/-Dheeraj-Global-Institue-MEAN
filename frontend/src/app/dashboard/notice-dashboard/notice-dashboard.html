@@ -1,0 +1,255 @@
+<!-- notice-dashboard.component.html -->
+<div class="dashboard-page">
+  <div class="dashboard-container">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-icon">
+        <i class="fas fa-bullhorn"></i>
+      </div>
+      <h1 class="header-title">Notice Dashboard</h1>
+      <p class="header-description">
+        Manage all school notices and announcements
+      </p>
+      <div class="header-decoration"></div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-bullhorn"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Total Notices</span>
+          <span class="stat-value">{{notices.length}}</span>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-tags"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Categories</span>
+          <span class="stat-value">{{getUniqueCategories()}}</span>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">This Month</span>
+          <span class="stat-value">{{getThisMonthCount()}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Notice Button -->
+    <div class="action-bar">
+      <button class="add-notice-btn" (click)="openAddModal()">
+        <i class="fas fa-plus"></i>
+        <span>Add New Notice</span>
+      </button>
+    </div>
+
+    <!-- Table Wrapper -->
+    <div class="table-wrapper">
+      <table class="notices-table">
+        <thead>
+          <tr>
+            <th>Notice Title</th>
+            <th>Category</th>
+            <th>Published Date</th>
+            <th class="actions-col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let notice of notices" class="table-row">
+            <td>
+              <div class="title-cell">
+                <i class="fas fa-bullhorn"></i>
+                <span>{{ notice.title }}</span>
+              </div>
+            </td>
+            <td>
+              <span class="category-badge" [ngClass]="getCategoryClass(notice.category)">
+                <i class="fas fa-tag"></i>
+                {{ notice.category }}
+              </span>
+            </td>
+            <td>
+              <span class="date-badge">
+                <i class="far fa-calendar"></i>
+                {{ notice.date | date }}
+              </span>
+            </td>
+            <td class="actions-col">
+              <div class="action-buttons">
+                <button class="action-btn edit-btn" (click)="openEditModal(notice)" title="Edit Notice">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button class="action-btn delete-btn" (click)="deleteNotice(notice)" title="Delete Notice">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="notices.length === 0">
+            <td colspan="4" class="empty-row">
+              <div class="empty-message">
+                <i class="fas fa-bullhorn"></i>
+                <p>No notices found</p>
+                <span>Click the "Add New Notice" button to create your first notice</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Notice Modal (Add/Edit) -->
+    <div class="modal-overlay" [class.active]="showModal" (click)="closeModal()">
+      <div class="modal-container" (click)="$event.stopPropagation()">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <div class="modal-title-wrapper">
+            <i class="fas fa-bullhorn modal-title-icon"></i>
+            <h2 class="modal-title">{{ isEdit ? 'Edit' : 'Add' }} Notice</h2>
+          </div>
+          <button class="modal-close" (click)="closeModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form [formGroup]="selectedNotice" (ngSubmit)="onSubmit()" class="notice-form">
+            
+            <!-- Notice Title -->
+            <div class="form-group">
+              <label class="form-label">
+                <i class="fas fa-heading"></i>
+                <span>Notice Title <span class="required-star">*</span></span>
+              </label>
+              <div class="input-wrapper">
+                <i class="fas fa-bullhorn input-icon"></i>
+                <input
+                  type="text"
+                  formControlName="title"
+                  class="form-control"
+                  placeholder="Enter notice title"
+                />
+                <div class="input-highlight"></div>
+              </div>
+              <div class="error-message" *ngIf="selectedNotice.get('title')?.invalid && selectedNotice.get('title')?.touched">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Title is required</span>
+              </div>
+            </div>
+
+            <!-- Category -->
+            <div class="form-group">
+              <label class="form-label">
+                <i class="fas fa-tag"></i>
+                <span>Category <span class="required-star">*</span></span>
+              </label>
+              <div class="input-wrapper">
+                <i class="fas fa-folder input-icon"></i>
+                <input
+                  type="text"
+                  formControlName="category"
+                  class="form-control"
+                  placeholder="e.g., Event, Holiday, Exam, Meeting"
+                />
+                <div class="input-highlight"></div>
+              </div>
+              <div class="error-message" *ngIf="selectedNotice.get('category')?.invalid && selectedNotice.get('category')?.touched">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Category is required</span>
+              </div>
+            </div>
+
+            <!-- Date -->
+            <div class="form-group">
+              <label class="form-label">
+                <i class="fas fa-calendar"></i>
+                <span>Published Date <span class="required-star">*</span></span>
+              </label>
+              <div class="input-wrapper">
+                <i class="fas fa-calendar-alt input-icon"></i>
+                <input
+                  type="date"
+                  formControlName="date"
+                  class="form-control"
+                />
+                <div class="input-highlight"></div>
+              </div>
+              <div class="error-message" *ngIf="selectedNotice.get('date')?.invalid && selectedNotice.get('date')?.touched">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Date is required</span>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+              <label class="form-label">
+                <i class="fas fa-align-left"></i>
+                <span>Description <span class="required-star">*</span></span>
+              </label>
+              <div class="input-wrapper textarea-wrapper">
+                <i class="fas fa-pen input-icon textarea-icon"></i>
+                <textarea
+                  formControlName="description"
+                  class="form-control textarea"
+                  rows="6"
+                  placeholder="Provide detailed description of the notice..."
+                ></textarea>
+                <div class="input-highlight"></div>
+              </div>
+              <div class="error-message" *ngIf="selectedNotice.get('description')?.invalid && selectedNotice.get('description')?.touched">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Description is required</span>
+              </div>
+              <div class="help-text">
+                <i class="fas fa-info-circle"></i>
+                <span>Include all important details and instructions</span>
+              </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn-secondary" (click)="closeModal()">
+                <i class="fas fa-times"></i>
+                Cancel
+              </button>
+              <button 
+                type="submit" 
+                class="btn-primary" 
+                [disabled]="selectedNotice.invalid"
+              >
+                <i class="fas fa-check"></i>
+                {{ isEdit ? 'Update Notice' : 'Create Notice' }}
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="modal-decoration">
+          <div class="decoration-circle"></div>
+          <div class="decoration-dots"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Font Awesome (keep in index.html) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

@@ -1,0 +1,521 @@
+<section class="container my-5">
+  <h2 class="text-center mb-4">Admission Form</h2>
+  <form class="my-4" id="admissionForm">
+    <!-- Student Details -->
+    <div class="card mb-4">
+      <div class="card-header background">Student Details</div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Full Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="studentName"
+              placeholder="Enter full name"
+              required
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" name="dob" required />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Gender</label>
+            <div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="male"
+                  value="Male"
+                  required
+                />
+                <label class="form-check-label" for="male">Male</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="female"
+                  value="Female"
+                />
+                <label class="form-check-label" for="female">Female</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="other"
+                  value="Other"
+                />
+                <label class="form-check-label" for="other">Other</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Age</label>
+            <input
+              type="number"
+              class="form-control"
+              name="age"
+              min="3"
+              max="18"
+              placeholder="Enter age"
+              required
+            />
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Blood Group</label>
+            <input
+              type="text"
+              class="form-control"
+              name="bloodGroup"
+              placeholder="e.g. A+, O-"
+            />
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Religion</label>
+            <input
+              type="text"
+              class="form-control"
+              name="religion"
+              placeholder="Enter religion"
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Caste Category</label>
+            <select class="form-select" name="casteCategory">
+              <option selected disabled>Select</option>
+              <option>General</option>
+              <option>SC</option>
+              <option>ST</option>
+              <option>OBC</option>
+              <option>Others</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Nationality</label>
+            <input
+              type="text"
+              class="form-control"
+              name="nationality"
+              placeholder="Enter nationality"
+            />
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Mother Tongue</label>
+            <input
+              type="text"
+              class="form-control"
+              name="motherTongue"
+              placeholder="Enter mother tongue"
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Aadhaar Number</label>
+            <input
+              type="text"
+              class="form-control"
+              name="aadhaar"
+              placeholder="Enter Aadhaar number"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admission Details -->
+    <div class="card mb-4">
+      <div class="card-header background">Admission Details</div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Admission For Class</label>
+            <select class="form-select" name="admissionClass">
+              <option selected disabled>Select Class</option>
+              <option>Nursery</option>
+              <option>LKG</option>
+              <option>UKG</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <!-- Add more classes as needed -->
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Academic Year</label>
+            <input
+              type="text"
+              class="form-control"
+              name="academicYear"
+              placeholder="2025-2026"
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Previous School Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="prevSchool"
+              placeholder="Enter previous school name"
+            />
+          </div>
+          <div class="col-12">
+            <label class="form-label">Reason for Leaving Previous School</label>
+            <textarea
+              class="form-control"
+              name="reasonLeaving"
+              rows="2"
+              placeholder="Enter reason"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parent/Guardian Details -->
+    <div class="card mb-4">
+      <div class="card-header background">Parent/Guardian Details</div>
+      <div class="card-body">
+        <div class="row g-3">
+          <!-- Father's Info -->
+          <div class="col-12">
+            <h6>Father's Information</h6>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Full Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="fatherName"
+              placeholder="Father's full name"
+            />
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Qualification</label>
+            <input
+              type="text"
+              class="form-control"
+              name="fatherQualification"
+              placeholder="Qualification"
+            />
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Occupation</label>
+            <input
+              type="text"
+              class="form-control"
+              name="fatherOccupation"
+              placeholder="Occupation"
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Office Address</label>
+            <input
+              type="text"
+              class="form-control"
+              name="fatherOffice"
+              placeholder="Office address"
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Contact Number</label>
+            <input
+              type="text"
+              class="form-control"
+              name="fatherContact"
+              placeholder="Contact number"
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              name="fatherEmail"
+              placeholder="Email address"
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Aadhaar Number</label>
+            <input
+              type="text"
+              class="form-control"
+              name="fatherAadhaar"
+              placeholder="Aadhaar number"
+            />
+          </div>
+          <!-- Mother's Info -->
+          <div class="col-12 mt-3">
+            <h6>Mother's Information</h6>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Full Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="motherName"
+              placeholder="Mother's full name"
+            />
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Qualification</label>
+            <input
+              type="text"
+              class="form-control"
+              name="motherQualification"
+              placeholder="Qualification"
+            />
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Occupation</label>
+            <input
+              type="text"
+              class="form-control"
+              name="motherOccupation"
+              placeholder="Occupation"
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Office Address</label>
+            <input
+              type="text"
+              class="form-control"
+              name="motherOffice"
+              placeholder="Office address"
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Contact Number</label>
+            <input
+              type="text"
+              class="form-control"
+              name="motherContact"
+              placeholder="Contact number"
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              name="motherEmail"
+              placeholder="Email address"
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Aadhaar Number</label>
+            <input
+              type="text"
+              class="form-control"
+              name="motherAadhaar"
+              placeholder="Aadhaar number"
+            />
+          </div>
+          <!-- Guardian Info (optional) -->
+          <div class="col-12 mt-3">
+            <h6>Guardian Information (Optional)</h6>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Full Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="guardianName"
+              placeholder="Guardian's full name"
+            />
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Relationship</label>
+            <input
+              type="text"
+              class="form-control"
+              name="guardianRelation"
+              placeholder="Relationship"
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Contact Number</label>
+            <input
+              type="text"
+              class="form-control"
+              name="guardianContact"
+              placeholder="Contact number"
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Address</label>
+            <input
+              type="text"
+              class="form-control"
+              name="guardianAddress"
+              placeholder="Guardian's address"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Address Details -->
+    <div class="card mb-4">
+      <div class="card-header background">Address Details</div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Present Address</label>
+            <textarea
+              class="form-control"
+              name="presentAddress"
+              rows="2"
+              placeholder="Enter present address"
+            ></textarea>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Permanent Address</label>
+            <textarea
+              class="form-control"
+              name="permanentAddress"
+              rows="2"
+              placeholder="Enter permanent address"
+            ></textarea>
+            <div class="form-check mt-2">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="sameAddress"
+              />
+              <label class="form-check-label" for="sameAddress">
+                Same as Present Address
+              </label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Emergency Contact Number</label>
+            <input
+              type="text"
+              class="form-control"
+              name="emergencyContact"
+              placeholder="Emergency contact number"
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Alternative Contact Number</label>
+            <input
+              type="text"
+              class="form-control"
+              name="altContact"
+              placeholder="Alternative contact number"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Documents Upload -->
+    <div class="card mb-4">
+      <div class="card-header background">Documents Upload</div>
+      <div class="card-body">
+        <div class="mb-3">
+          <label class="form-label"
+            >Student Photo <span class="text-danger">*</span></label
+          >
+          <input
+            class="form-control"
+            type="file"
+            name="studentPhoto"
+            accept="image/*"
+            required
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Declaration -->
+    <div class="card mb-4">
+      <div class="card-header background">Declaration</div>
+      <div class="card-body">
+        <div class="form-check mb-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="declaration"
+            required
+          />
+          <label class="form-check-label" for="declaration">
+            I declare that the information provided is correct.
+          </label>
+        </div>
+        <div class="row g-3 align-items-center">
+          <div class="col-md-3">
+            <label class="form-label">Date</label>
+            <input
+              type="date"
+              class="form-control"
+              name="declarationDate"
+              required
+            />
+          </div>
+          <div class="col-md-9 text-end">
+            <button
+              type="button"
+              class="btn btn-primary background px-4"
+              id="generatePdfBtn"
+            >
+              Generate PDF
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Admission Instructions Card -->
+  <div class="card border-primary mb-5">
+    <div class="card-header background fw-bold">
+      Instructions for School Admission Application
+    </div>
+    <div class="card-body">
+      <ol class="mb-3">
+        <li>
+          <strong>Fill the Online Admission Form</strong><br />
+          Complete all fields accurately. Upload child’s recent photo.
+        </li>
+        <li>
+          <strong>Generate the Application PDF</strong><br />
+          Click "Generate PDF" to download a print-ready A4 PDF.
+        </li>
+        <li>
+          <strong>Print the PDF</strong><br />
+          Print it on A4 paper. Ensure all text is clearly visible.
+        </li>
+        <li>
+          <strong>Visit the School with Required Documents</strong><br />
+          Bring the printed form + copies of:
+          <ul>
+            <li>Child's Aadhaar Card</li>
+            <li>Parent's Aadhaar Card</li>
+            <li>Student Photo</li>
+            <li>School Leaving Certificate (if any)</li>
+            <li>Birth Certificate</li>
+            <li>Caste Certificate (if applicable)</li>
+            <li>Address Proof</li>
+            <li>Medical Report (if applicable)</li>
+          </ul>
+        </li>
+      </ol>
+      <div class="alert alert-warning mb-0">
+        <ul class="mb-0">
+          <li>Incomplete forms will not be accepted.</li>
+          <li>This PDF does not confirm admission.</li>
+          <li>Final decision after document verification.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

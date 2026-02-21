@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+.ticker-section {
+  background: linear-gradient(105deg, #1a3650 0%, #2a4a6e 100%);
+  padding: 0.6rem 0;
+  border-bottom: 2px solid rgba(249, 168, 38, 0.3);
+  font-family: 'Outfit', sans-serif;
+}
+
+.ticker-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0 1.5rem;
+  }
+}
+
+.ticker-label {
+  background: #F9A826;
+  color: #1a3650;
+  padding: 0.4rem 1.5rem;
+  border-radius: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(249, 168, 38, 0.3);
+  
+  i {
+    font-size: 1.1rem;
+  }
+  
+  .label-text {
+    text-transform: uppercase;
+  }
+}
+
+.ticker-track {
+  flex: 1;
+  overflow: hidden;
+}
+
+.ticker-link {
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+}
+
+.ticker-message {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    color: #F9A826;
+    transition: color 0.3s ease;
+  }
+}

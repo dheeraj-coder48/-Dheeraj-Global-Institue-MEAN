@@ -1,0 +1,129 @@
+<!-- notices.component.html -->
+<div class="notices-page">
+  <div class="notices-container">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <span class="header-subtitle">Stay Updated</span>
+      <h1 class="header-title">School Notices</h1>
+      <p class="header-description">
+        Stay updated with the latest announcements and events at Dheeraj Global Institute.
+        Here you will find important notices, and other relevant information.
+      </p>
+      <div class="header-decoration"></div>
+    </div>
+
+    <!-- Notices Table -->
+    <div class="table-wrapper">
+      <table class="notices-table">
+        <thead>
+          <tr>
+            <th class="sr-col">Sr No.</th>
+            <th class="category-col">Category</th>
+            <th class="date-col">Date</th>
+            <th class="notice-col">Notice</th>
+            <th class="action-col">Read in Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(notice of notices; track $index){
+          <tr class="notice-row">
+            <td class="sr-col">{{$index + 1}}</td>
+            <td class="category-col">
+              <span class="category-badge" [ngClass]="'category-' + notice.category.toLowerCase()">
+                {{notice.category}}
+              </span>
+            </td>
+            <td class="date-col">{{notice.date | date}}</td>
+            <td class="notice-col">{{notice.title}}</td>
+            <td class="action-col">
+              <button class="read-more-btn" (click)="showNotice(notice)">
+                <span>Read More</span>
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    @if(notices.length === 0){
+    <div class="empty-state">
+      <i class="fas fa-bell-slash"></i>
+      <h3>No Notices Available</h3>
+      <p>Check back later for updates and announcements</p>
+    </div>
+    }
+
+    <!-- Custom Modal -->
+    <div class="modal-overlay" [class.active]="isModalOpen" (click)="closeModal()">
+      <div class="modal-container" (click)="$event.stopPropagation()">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <div class="modal-title-wrapper">
+            <i class="fas fa-bullhorn modal-title-icon"></i>
+            <h2 class="modal-title">{{selectedNotice.title}}</h2>
+          </div>
+          <button class="modal-close" (click)="closeModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          
+          <!-- Notice Meta -->
+          <div class="notice-meta">
+            <div class="meta-item">
+              <i class="far fa-calendar-alt"></i>
+              <div class="meta-content">
+                <span class="meta-label">Date</span>
+                <span class="meta-value">{{selectedNotice.date | date}}</span>
+              </div>
+            </div>
+            
+            <div class="meta-item">
+              <i class="far fa-folder"></i>
+              <div class="meta-content">
+                <span class="meta-label">Category</span>
+                <span class="meta-value">{{selectedNotice.category}}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notice Content -->
+          <div class="notice-content">
+            <h3 class="content-heading">
+              <i class="fas fa-file-alt"></i>
+              Notice Details
+            </h3>
+            <p class="content-text">{{selectedNotice.description}}</p>
+          </div>
+
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button class="btn-close-modal" (click)="closeModal()">
+            <i class="fas fa-check"></i>
+            Close
+          </button>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="modal-decoration">
+          <div class="decoration-circle"></div>
+          <div class="decoration-dots"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Font Awesome (keep in index.html) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

@@ -1,0 +1,90 @@
+<!-- dashboard.component.html -->
+<div class="dashboard-wrapper">
+  <div class="dashboard-container">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-icon">
+        <i class="fas fa-chart-pie"></i>
+      </div>
+      <h1 class="header-title">Dashboard</h1>
+      <!-- <p class="header-description">
+        Manage all your school data from one central location
+      </p> -->
+      <div class="header-decoration"></div>
+    </div>
+
+    <!-- Dashboard Selector Card -->
+    <div class="selector-card">
+      <div class="selector-content">
+        
+        <!-- Selector Label with Icon -->
+        <div class="selector-label">
+          <i class="fas fa-compass"></i>
+          <span>Select Dashboard:</span>
+        </div>
+
+        <!-- Custom Select Dropdown -->
+        <div class="custom-select-wrapper">
+          <select 
+            class="custom-select" 
+            id="dashboardSelect" 
+            [(ngModel)]="selectedMenu"
+          >
+            <option value="contact">📞 Contact Dashboard</option>
+            <option value="events">📅 Events Dashboard</option>
+            <option value="gallery">🖼️ Gallery Dashboard</option>
+            <option value="notices">📢 Notices Dashboard</option>
+            <option value="teachers">👨‍🏫 Teachers Dashboard</option>
+          </select>
+          <div class="select-arrow">
+            <i class="fas fa-chevron-down"></i>
+          </div>
+        </div>
+
+        <!-- Active Dashboard Badge -->
+        <div class="active-badge">
+          <span class="badge-dot"></span>
+          <span class="badge-text">Active: {{selectedMenu | titlecase}}</span>
+        </div>
+
+      </div>
+
+      <!-- Decorative Elements -->
+      <div class="selector-decoration">
+        <div class="decoration-circle"></div>
+        <div class="decoration-dots"></div>
+      </div>
+    </div>
+
+    <!-- Dashboard Content Area -->
+    <div class="content-area">
+      
+      <!-- Dynamic Dashboard Components -->
+      <div class="content-wrapper">
+        @switch(selectedMenu) {
+          @case ('contact') {
+            <app-contact-dashboard></app-contact-dashboard>
+          }
+          @case ('events') {
+            <app-events-dashboard></app-events-dashboard>
+          }
+          @case ('gallery') {
+            <app-gallery-dashboard></app-gallery-dashboard>
+          }
+          @case ('notices') {
+            <app-notice-dashboard></app-notice-dashboard>
+          }
+          @case ('teachers') {
+            <app-teachers-dashboard></app-teachers-dashboard>
+          }
+        }
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- Font Awesome (keep in index.html) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

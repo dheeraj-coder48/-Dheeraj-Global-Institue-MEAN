@@ -1,0 +1,328 @@
+// dashboard.component.scss
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+:host {
+  --primary: #2A5C82;
+  --primary-dark: #1E3B5A;
+  --primary-light: #3B7BAD;
+  --secondary: #F9A826;
+  --accent: #4ECDC4;
+  --dark: #1E2B3A;
+  --light: #F8F9FA;
+  --white: #FFFFFF;
+  --gray-100: #F8F9FA;
+  --gray-200: #E9ECEF;
+  --gray-300: #DEE2E6;
+  --gray-400: #CED4DA;
+  --gray-500: #ADB5BD;
+  --success: #28A745;
+  --gradient-primary: linear-gradient(135deg, #2A5C82, #1E3B5A);
+  --gradient-accent: linear-gradient(135deg, #F9A826, #F7B731);
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+  --shadow-xl: 0 20px 32px -8px rgba(0,0,0,0.15);
+  --border-radius: 12px;
+  --border-radius-lg: 20px;
+  --border-radius-xl: 30px;
+  
+  font-family: 'Inter', sans-serif;
+}
+
+.dashboard-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--light) 0%, var(--white) 100%);
+  padding: 2rem 0;
+}
+
+.dashboard-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  
+  @media (max-width: 768px) {
+    padding: 0 1.5rem;
+  }
+}
+
+// Page Header
+.page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  
+  .header-icon {
+    width: 70px;
+    height: 70px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: var(--white);
+    font-size: 2rem;
+    box-shadow: 0 10px 20px rgba(42,92,130,0.3);
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    
+    @media (max-width: 768px) {
+      font-size: 2.2rem;
+    }
+  }
+  
+  .header-description {
+    font-size: 1.1rem;
+    color: var(--gray-500);
+    margin-bottom: 1rem;
+  }
+  
+  .header-decoration {
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+    margin: 0 auto;
+  }
+}
+
+// Selector Card
+.selector-card {
+  background: var(--white);
+  border-radius: var(--border-radius-xl);
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(42,92,130,0.1);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+  }
+}
+
+.selector-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+}
+
+// Selector Label
+.selector-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1.2rem;
+  background: linear-gradient(135deg, rgba(42,92,130,0.1) 0%, rgba(249,168,38,0.1) 100%);
+  border-radius: 50px;
+  color: var(--primary);
+  font-weight: 500;
+  
+  i {
+    color: var(--secondary);
+    font-size: 1.1rem;
+  }
+  
+  span {
+    font-size: 0.95rem;
+  }
+}
+
+// Custom Select
+.custom-select-wrapper {
+  position: relative;
+  flex: 1;
+  max-width: 300px;
+  
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+}
+
+.custom-select {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  padding-right: 3rem;
+  font-size: 1rem;
+  color: var(--dark);
+  background: var(--white);
+  border: 2px solid var(--gray-200);
+  border-radius: 50px;
+  appearance: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  
+  option {
+    padding: 1rem;
+    font-weight: normal;
+  }
+  
+  &:hover {
+    border-color: var(--gray-400);
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(42,92,130,0.1);
+  }
+}
+
+.select-arrow {
+  position: absolute;
+  right: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary);
+  pointer-events: none;
+  transition: transform 0.3s ease;
+  
+  i {
+    font-size: 1rem;
+  }
+}
+
+.custom-select:focus + .select-arrow {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+// Active Badge
+.active-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, var(--success) 0%, #20B2AA 100%);
+  border-radius: 50px;
+  color: var(--white);
+  margin-left: auto;
+  
+  @media (max-width: 768px) {
+    margin-left: 0;
+    width: fit-content;
+  }
+  
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--white);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  
+  .badge-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+}
+
+// Selector Decoration
+.selector-decoration {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+  
+  .decoration-circle {
+    position: absolute;
+    bottom: -30px;
+    right: -30px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(42,92,130,0.05) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  
+  .decoration-dots {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    width: 80px;
+    height: 80px;
+    background-image: radial-gradient(var(--secondary) 2px, transparent 2px);
+    background-size: 12px 12px;
+    opacity: 0.05;
+  }
+}
+
+// Content Area
+.content-area {
+  background: var(--white);
+  border-radius: var(--border-radius-xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--gray-200);
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+}
+
+.content-wrapper {
+  min-height: 500px;
+  position: relative;
+}
+
+// Animations
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+// Responsive adjustments for each dashboard component
+::ng-deep {
+  app-contact-dashboard,
+  app-events-dashboard,
+  app-gallery-dashboard,
+  app-notice-dashboard,
+  app-teachers-dashboard {
+    display: block;
+    
+    .dashboard-page {
+      padding: 0;
+      background: transparent;
+    }
+    
+    .page-header {
+      margin-top: 0;
+    }
+  }
+}

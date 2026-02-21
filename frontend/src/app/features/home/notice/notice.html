@@ -1,0 +1,15 @@
+<div class="ticker-section">
+  <div class="ticker-container">
+    <div class="ticker-label">
+      <i class="fas fa-bullhorn"></i>
+      <span class="label-text">Notice Board</span>
+    </div>
+    <div class="ticker-track">
+      <marquee behavior="scroll" direction="left" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();">
+        <a [routerLink]="'/notices'" class="ticker-link">
+          <span class="ticker-message">{{notices}}</span>
+        </a>
+      </marquee>
+    </div>
+  </div>
+</div>

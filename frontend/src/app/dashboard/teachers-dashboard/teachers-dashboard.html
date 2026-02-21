@@ -1,0 +1,322 @@
+<!-- teachers-dashboard.component.html -->
+<div class="dashboard-page">
+  <div class="dashboard-container">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-icon">
+        <i class="fas fa-chalkboard-teacher"></i>
+      </div>
+      <h1 class="header-title">Teachers Dashboard</h1>
+      <p class="header-description">
+        Manage all faculty members and their information
+      </p>
+      <div class="header-decoration"></div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Total Teachers</span>
+          <span class="stat-value">{{teachers.length}}</span>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Subjects</span>
+          <span class="stat-value">{{getUniqueSubjects()}}</span>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Designations</span>
+          <span class="stat-value">{{getUniqueDesignations()}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Teacher Button -->
+    <div class="action-bar">
+      <button class="add-teacher-btn" (click)="openAddModal()">
+        <i class="fas fa-plus"></i>
+        <span>Add New Teacher</span>
+      </button>
+    </div>
+
+    <!-- Table Wrapper -->
+    <div class="table-wrapper">
+      <table class="teachers-table">
+        <thead>
+          <tr>
+            <th>Profile</th>
+            <th>Teacher Name</th>
+            <th>Subject</th>
+            <th>Designation</th>
+            <th class="actions-col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let teacher of teachers; let i = index" class="table-row">
+            <td>
+              <div class="profile-cell">
+                <img
+                  [src]="teacher.image"
+                  alt="{{teacher.name}}"
+                  class="profile-image"
+                  (error)="handleImageError($event)"
+                />
+              </div>
+            </td>
+            <td>
+              <div class="name-cell">
+                <i class="fas fa-user-circle"></i>
+                <span>{{ teacher.name }}</span>
+              </div>
+            </td>
+            <td>
+              <span class="subject-badge">
+                <i class="fas fa-book"></i>
+                {{ teacher.subject }}
+              </span>
+            </td>
+            <td>
+              <span class="designation-badge">
+                <i class="fas fa-user-tie"></i>
+                {{ teacher.designation }}
+              </span>
+            </td>
+            <td class="actions-col">
+              <div class="action-buttons">
+                <button class="action-btn edit-btn" (click)="openEditModal(teacher)" title="Edit Teacher">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button class="action-btn delete-btn" (click)="deleteTeacher(teacher, i)" title="Delete Teacher">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="teachers.length === 0">
+            <td colspan="5" class="empty-row">
+              <div class="empty-message">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <p>No teachers found</p>
+                <span>Click the "Add New Teacher" button to add your first teacher</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Teacher Modal (Add/Edit) -->
+    <div class="modal-overlay" [class.active]="showModal" (click)="closeModal()">
+      <div class="modal-container" (click)="$event.stopPropagation()">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <div class="modal-title-wrapper">
+            <i class="fas fa-chalkboard-teacher modal-title-icon"></i>
+            <h2 class="modal-title">{{ isEdit ? 'Edit' : 'Add' }} Teacher</h2>
+          </div>
+          <button class="modal-close" (click)="closeModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()" class="teacher-form">
+            
+            <!-- Two Column Layout -->
+            <div class="form-grid">
+              
+              <!-- Left Column - Teacher Details -->
+              <div class="form-left">
+                
+                <!-- Teacher Name -->
+                <div class="form-group">
+                  <label class="form-label">
+                    <i class="fas fa-user"></i>
+                    <span>Teacher Name <span class="required-star">*</span></span>
+                  </label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-user input-icon"></i>
+                    <input
+                      type="text"
+                      formControlName="name"
+                      class="form-control"
+                      placeholder="Enter teacher's full name"
+                    />
+                    <div class="input-highlight"></div>
+                  </div>
+                  <div class="error-message" *ngIf="teacherForm.get('name')?.invalid && teacherForm.get('name')?.touched">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Name is required</span>
+                  </div>
+                </div>
+
+                <!-- Subject -->
+                <div class="form-group">
+                  <label class="form-label">
+                    <i class="fas fa-book"></i>
+                    <span>Subject <span class="required-star">*</span></span>
+                  </label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-book-open input-icon"></i>
+                    <input
+                      type="text"
+                      formControlName="subject"
+                      class="form-control"
+                      placeholder="e.g., Mathematics, Science, English"
+                    />
+                    <div class="input-highlight"></div>
+                  </div>
+                  <div class="error-message" *ngIf="teacherForm.get('subject')?.invalid && teacherForm.get('subject')?.touched">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Subject is required</span>
+                  </div>
+                </div>
+
+                <!-- Designation -->
+                <div class="form-group">
+                  <label class="form-label">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Designation <span class="required-star">*</span></span>
+                  </label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-id-badge input-icon"></i>
+                    <input
+                      type="text"
+                      formControlName="designation"
+                      class="form-control"
+                      placeholder="e.g., Senior Teacher, HOD, Coordinator"
+                    />
+                    <div class="input-highlight"></div>
+                  </div>
+                  <div class="error-message" *ngIf="teacherForm.get('designation')?.invalid && teacherForm.get('designation')?.touched">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Designation is required</span>
+                  </div>
+                </div>
+
+                <!-- Profile Image URL - Note: field name is 'image' to match backend -->
+                <div class="form-group">
+                  <label class="form-label">
+                    <i class="fas fa-image"></i>
+                    <span>Profile Image URL <span class="required-star">*</span></span>
+                  </label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-camera input-icon"></i>
+                    <input
+                      type="url"
+                      formControlName="image"
+                      class="form-control"
+                      placeholder="https://example.com/teacher-photo.jpg"
+                    />
+                    <div class="input-highlight"></div>
+                  </div>
+                  <div class="error-message" *ngIf="teacherForm.get('image')?.invalid && teacherForm.get('image')?.touched">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Profile image URL is required</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Right Column - Bio (Required) -->
+              <div class="form-right">
+                <div class="form-group">
+                  <label class="form-label">
+                    <i class="fas fa-align-left"></i>
+                    <span>Bio <span class="required-star">*</span></span>
+                  </label>
+                  <div class="input-wrapper textarea-wrapper">
+                    <i class="fas fa-pen input-icon textarea-icon"></i>
+                    <textarea
+                      formControlName="bio"
+                      class="form-control textarea"
+                      rows="10"
+                      placeholder="Write a brief biography of the teacher including qualifications, experience, and achievements..."
+                    ></textarea>
+                    <div class="input-highlight"></div>
+                  </div>
+                  <div class="error-message" *ngIf="teacherForm.get('bio')?.invalid && teacherForm.get('bio')?.touched">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Bio is required</span>
+                  </div>
+                  <div class="help-text">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Include qualifications, experience, and achievements</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Image Preview (if URL entered) -->
+            <div class="preview-section" *ngIf="teacherForm.get('image')?.value">
+              <label class="preview-label">
+                <i class="fas fa-eye"></i>
+                <span>Profile Preview</span>
+              </label>
+              <div class="preview-container">
+                <img
+                  [src]="teacherForm.get('image')?.value"
+                  alt="Profile Preview"
+                  class="preview-image"
+                  (error)="previewError = true"
+                  (load)="previewError = false"
+                />
+                <div class="preview-overlay" *ngIf="previewError">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  <span>Invalid image URL</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn-secondary" (click)="closeModal()">
+                <i class="fas fa-times"></i>
+                Cancel
+              </button>
+              <button 
+                type="submit" 
+                class="btn-primary" 
+                [disabled]="teacherForm.invalid"
+              >
+                <i class="fas fa-check"></i>
+                {{ isEdit ? 'Update Teacher' : 'Add Teacher' }}
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="modal-decoration">
+          <div class="decoration-circle"></div>
+          <div class="decoration-dots"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Font Awesome (keep in index.html) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

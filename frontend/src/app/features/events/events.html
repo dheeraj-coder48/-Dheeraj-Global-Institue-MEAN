@@ -1,0 +1,286 @@
+<!-- events.component.html -->
+<div class="events-page">
+  <div class="events-container">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <span class="header-subtitle">Stay Connected</span>
+      <h1 class="header-title">Upcoming Events</h1>
+      <p class="header-description">
+        Join us in celebrating learning, culture, and community at Dheeraj Global Institute
+      </p>
+    </div>
+
+    <!-- Events Grid -->
+    <div class="events-grid">
+      @for (event of events; track $index){
+      <div class="event-card" [style.animation-delay]="$index * 0.1 + 's'">
+        
+        <div class="event-card-inner">
+          
+          <!-- Calendar Icon -->
+          <div class="event-icon-wrapper">
+            <i class="fas fa-calendar-alt event-icon"></i>
+          </div>
+
+          <!-- Event Content -->
+          <div class="event-content">
+            <div class="event-header">
+              <h3 class="event-title">{{event.title}}</h3>
+              <div class="event-meta">
+                <span class="event-date">
+                  <i class="far fa-calendar"></i>
+                  {{event.date | date}}
+                </span>
+                <span class="event-location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  {{event.location}}
+                </span>
+              </div>
+            </div>
+
+            <p class="event-description">
+              {{event.shortDescription}}
+            </p>
+
+            <button class="event-details-btn" (click)="showEvent(event)">
+              <span>View Details</span>
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <!-- Decorative Elements -->
+          <div class="event-decoration">
+            <div class="decoration-circle"></div>
+            <div class="decoration-dots"></div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Instructions Section -->
+    <div class="instructions-section">
+      <div class="instructions-card">
+        
+        <!-- Instructions Header -->
+        <div class="instructions-header">
+          <div class="header-icon">
+            <i class="fas fa-clipboard-list"></i>
+          </div>
+          <h2 class="instructions-title">General Instructions</h2>
+          <p class="instructions-subtitle">for Parents and Students Attending School Events</p>
+        </div>
+
+        <!-- Instructions Grid -->
+        <div class="instructions-grid">
+          
+          <!-- Arrival Time -->
+          <div class="instruction-item">
+            <div class="item-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="item-content">
+              <h4>Arrival Time</h4>
+              <p>Please reach the school 15–30 minutes before the event start time to avoid last-minute rush.</p>
+            </div>
+          </div>
+
+          <!-- Dress Code -->
+          <div class="instruction-item">
+            <div class="item-icon">
+              <i class="fas fa-tshirt"></i>
+            </div>
+            <div class="item-content">
+              <h4>Dress Code</h4>
+              <ul>
+                <li>Students must wear proper school uniform unless specified otherwise.</li>
+                <li>Parents should dress decently and modestly, keeping the school environment in mind.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- ID Cards -->
+          <div class="instruction-item">
+            <div class="item-icon">
+              <i class="fas fa-id-card"></i>
+            </div>
+            <div class="item-content">
+              <h4>ID Cards</h4>
+              <p>Carry your school ID card (for students) or parent pass (if issued) for security reasons.</p>
+            </div>
+          </div>
+
+          <!-- Seating & Discipline -->
+          <div class="instruction-item">
+            <div class="item-icon">
+              <i class="fas fa-chair"></i>
+            </div>
+            <div class="item-content">
+              <h4>Seating and Discipline</h4>
+              <ul>
+                <li>Follow the seating arrangements as guided by the school staff.</li>
+                <li>Maintain silence and decorum during performances and speeches.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Mobile Phones -->
+          <div class="instruction-item">
+            <div class="item-icon">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <div class="item-content">
+              <h4>Mobile Phones</h4>
+              <ul>
+                <li>Keep mobile phones on silent mode.</li>
+                <li>Do not use flash photography or record videos unless permitted.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Parking -->
+          <div class="instruction-item">
+            <div class="item-icon">
+              <i class="fas fa-parking"></i>
+            </div>
+            <div class="item-content">
+              <h4>Parking</h4>
+              <ul>
+                <li>Park your vehicles only in the designated parking area.</li>
+                <li>Do not block the school gate or neighboring premises.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Food & Water -->
+          <div class="instruction-item">
+            <div class="item-icon">
+              <i class="fas fa-utensils"></i>
+            </div>
+            <div class="item-content">
+              <h4>Food and Water</h4>
+              <ul>
+                <li>Avoid bringing outside food unless instructed.</li>
+                <li>Carry a water bottle if needed. Drinking water will also be available on campus.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Special Needs -->
+          <div class="instruction-item">
+            <div class="item-icon">
+              <i class="fas fa-hand-holding-heart"></i>
+            </div>
+            <div class="item-content">
+              <h4>Special Needs</h4>
+              <p>If your child has any special needs, kindly inform the class teacher in advance.</p>
+            </div>
+          </div>
+
+          <!-- Health & Safety -->
+          <div class="instruction-item">
+            <div class="item-icon">
+              <i class="fas fa-heartbeat"></i>
+            </div>
+            <div class="item-content">
+              <h4>Health & Safety</h4>
+              <p>In case of any health issues or emergencies, contact the nearest teacher or school staff immediately.</p>
+            </div>
+          </div>
+
+          <!-- Exit Instructions -->
+          <div class="instruction-item">
+            <div class="item-icon">
+              <i class="fas fa-door-open"></i>
+            </div>
+            <div class="item-content">
+              <h4>Exit Instructions</h4>
+              <ul>
+                <li>Wait for official announcements before exiting the venue.</li>
+                <li>Do not crowd the gates or push while leaving.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Message -->
+        <div class="instructions-footer">
+          <i class="fas fa-heart"></i>
+          <p>Thank you for your cooperation. We look forward to your enthusiastic participation!</p>
+          <i class="fas fa-heart"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    @if(events.length === 0){
+    <div class="empty-state">
+      <i class="fas fa-calendar-times"></i>
+      <h3>No Upcoming Events</h3>
+      <p>Check back later for new events and activities</p>
+    </div>
+    }
+
+    <!-- Event Modal -->
+    <div class="modal-overlay" [class.active]="selectedEvent.title" (click)="selectedEvent = { title: '', date: '', location: '', description: '', shortDescription: '' }">
+      <div class="modal-container" (click)="$event.stopPropagation()">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <div class="modal-title-wrapper">
+            <i class="fas fa-calendar-check modal-title-icon"></i>
+            <h2 class="modal-title">{{selectedEvent.title}}</h2>
+          </div>
+          <button class="modal-close" (click)="selectedEvent = { title: '', date: '', location: '', description: '', shortDescription: '' }">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          
+          <!-- Event Meta -->
+          <div class="event-meta-info">
+            <div class="meta-info-item">
+              <i class="fas fa-calendar-alt"></i>
+              <div>
+                <span class="meta-label">Date</span>
+                <span class="meta-value">{{selectedEvent.date | date:'fullDate'}}</span>
+              </div>
+            </div>
+            
+            <div class="meta-info-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <span class="meta-label">Location</span>
+                <span class="meta-value">{{selectedEvent.location}}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event Description -->
+          <div class="event-description-box">
+            <h3 class="description-heading">
+              <i class="fas fa-info-circle"></i>
+              Event Details
+            </h3>
+            <p class="description-text">{{selectedEvent.description}}</p>
+          </div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button class="btn-close-modal" (click)="selectedEvent = { title: '', date: '', location: '', description: '', shortDescription: '' }">
+            <i class="fas fa-check"></i>
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Font Awesome (keep in index.html) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

@@ -1,0 +1,137 @@
+<!-- login.component.html -->
+<div class="login-page">
+  <div class="login-container">
+    
+    <!-- Decorative Elements -->
+    <div class="login-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+    </div>
+
+    <!-- Login Card -->
+    <div class="login-card">
+      
+      <!-- School Logo & Header -->
+      <div class="login-header">
+        <div class="logo-wrapper">
+          <div class="logo-glow"></div>
+          <img src="assets/images/logo.png" alt="Dheeraj Global Institute" class="school-logo">
+        </div>
+        <h1 class="school-name">Dheeraj Global Institute</h1>
+        <p class="login-subtitle">Welcome back! Please login to your account</p>
+      </div>
+
+      <!-- Login Form -->
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
+        
+        <!-- Email Field -->
+        <div class="form-group">
+          <label class="form-label" for="email">
+            <i class="fas fa-envelope label-icon"></i>
+            Email Address <span class="required-star">*</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope input-icon"></i>
+            <input
+              formControlName="email"
+              type="email"
+              id="email"
+              class="form-control"
+              placeholder="Enter your email address"
+              [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+            />
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Email is required</span>
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label class="form-label" for="password">
+            <i class="fas fa-lock label-icon"></i>
+            Password <span class="required-star">*</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock input-icon"></i>
+            <input
+              formControlName="password"
+              type="password"
+              id="password"
+              class="form-control"
+              placeholder="Enter your password"
+              [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+            />
+            <button 
+              type="button" 
+              class="password-toggle" 
+              (click)="togglePasswordVisibility()"
+              *ngIf="loginForm.get('password')?.value"
+            >
+              <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+            </button>
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Password is required</span>
+          </div>
+        </div>
+
+        <!-- Remember Me & Forgot Password -->
+        <!-- <div class="form-options">
+          <label class="checkbox-container">
+            <input type="checkbox" formControlName="rememberMe" class="checkbox">
+            <span class="checkmark"></span>
+            <span class="checkbox-label">Remember me</span>
+          </label>
+          <a routerLink="/forgot-password" class="forgot-link">Forgot Password?</a>
+        </div> -->
+
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          class="login-btn" 
+          [disabled]="loginForm.invalid"
+          [class.loading]="isLoading"
+        >
+          <span class="btn-text" *ngIf="!isLoading">Log In</span>
+          <span class="btn-loader" *ngIf="isLoading">
+            <i class="fas fa-spinner fa-spin"></i>
+            Logging in...
+          </span>
+        </button>
+
+        <!-- Additional Links -->
+        <!-- <div class="login-footer">
+          <p class="register-text">
+            Don't have an account? 
+            <a routerLink="/register" class="register-link">Contact Administrator</a>
+          </p>
+        </div> -->
+
+      </form>
+
+      <!-- Security Badge -->
+      <div class="security-badge">
+        <i class="fas fa-shield-alt"></i>
+        <span>Secured by SSL Encryption</span>
+      </div>
+
+    </div>
+
+    <!-- Back to Home Link -->
+    <a routerLink="/" class="back-home">
+      <i class="fas fa-arrow-left"></i>
+      Back to Home
+    </a>
+
+  </div>
+</div>
+
+<!-- Font Awesome (keep in index.html) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Annual Sports Day",
+    "description": "The Annual Sports Day is one of the most awaited events in our school. Students participate in various athletic and team sports competitions throughout the day.",
+    "shortDescription": "Exciting school sports competitions and events.",
+    "date": "2025-11-15T09:00:00.000Z",
+    "location": "School Playground"
+  },
+  {
+    "title": "Science Exhibition",
+    "description": "Students will showcase their science projects and innovative models. Parents and teachers are invited to explore and encourage the budding scientists.",
+    "shortDescription": "Showcase of student-made science projects.",
+    "date": "2025-08-20T10:00:00.000Z",
+    "location": "School Science Block"
+  },
+  {
+    "title": "Independence Day Celebration",
+    "description": "A cultural program to celebrate India's independence with patriotic songs, dances, and speeches by students.",
+    "shortDescription": "Celebrating freedom with cultural performances.",
+    "date": "2025-08-15T08:00:00.000Z",
+    "location": "Main Auditorium"
+  },
+  {
+    "title": "Parent-Teacher Meeting",
+    "description": "Scheduled meeting for parents to discuss their child’s progress with teachers. Please attend on time.",
+    "shortDescription": "Discuss your child’s academic performance.",
+    "date": "2025-07-10T14:00:00.000Z",
+    "location": "Classrooms - A Wing"
+  }
+]

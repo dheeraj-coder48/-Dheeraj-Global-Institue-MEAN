@@ -1,0 +1,19 @@
+<div class="ticker-section">
+  <div class="ticker-container">
+    <div class="ticker-label">
+      <i class="fas fa-trophy"></i>
+      <span class="label-text">Achievements</span>
+    </div>
+    <div class="ticker-track">
+      <marquee behavior="scroll" direction="left" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();">
+        <a [routerLink]="'/achievements'" class="ticker-link">
+          <span class="achievement-item">
+            <span class="student-name">Ananya Singh</span>
+            <span class="achievement-desc">• 1st Prize in State Level Painting Competition •</span>
+            <span class="achievement-date">15 Mar 2025</span>
+          </span>
+        </a>
+      </marquee>
+    </div>
+  </div>
+</div>
