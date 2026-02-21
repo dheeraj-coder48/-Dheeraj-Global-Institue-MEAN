@@ -23,7 +23,9 @@ const noticeRoutes = require("./routes/notice");
 const teacherRoutes = require("./routes/teacher");
 const authRoutes = require("./routes/auth");
 
-
+app.get("/", (req, res) => {
+  res.send("Backend is running successfully 🚀");
+});
 //Using Routes
 app.use("/api/contact",contactRoutes);
 app.use("/api/event", eventRoutes);
