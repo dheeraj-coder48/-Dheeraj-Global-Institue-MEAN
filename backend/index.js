@@ -22,6 +22,9 @@ const galleryRoutes = require("./routes/gallery");
 const noticeRoutes = require("./routes/notice");
 const teacherRoutes = require("./routes/teacher");
 const authRoutes = require("./routes/auth");
+const lostFoundRoutes = require("./routes/lostFound");
+const alumniRoutes = require("./routes/alumni");
+
 
 app.get("/", (req, res) => {
   res.send("Backend is running successfully 🚀");
@@ -33,6 +36,8 @@ app.use("/api/gallery", galleryRoutes);
 app.use("/api/notice", noticeRoutes);
 app.use("/api/teacher", teacherRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/lost-found", lostFoundRoutes);
+app.use("/api/alumni", alumniRoutes);
 
 app.listen(PORT,()=>{
     console.log(`Server is running on PORT ${PORT}`)

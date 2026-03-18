@@ -1,0 +1,193 @@
+<div class="approval-page">
+  
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1 class="page-title">
+      <i class="fas fa-user-check"></i>
+      Alumni Approval
+    </h1>
+    <p class="page-description">Review and verify pending alumni registrations</p>
+  </div>
+
+  <!-- Stats Card -->
+  <div class="stats-card">
+    <div class="stat-item">
+      <span class="stat-value">{{pendingAlumni.length}}</span>
+      <span class="stat-label">Pending Approvals</span>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-state" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Loading pending approvals...</p>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!loading && pendingAlumni.length === 0">
+    <i class="fas fa-check-circle"></i>
+    <h3>No Pending Approvals</h3>
+    <p>All alumni registrations have been processed.</p>
+  </div>
+
+  <!-- Approvals Table -->
+  <div class="table-wrapper" *ngIf="!loading && pendingAlumni.length > 0">
+    <table class="approvals-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Batch</th>
+          <th>Program</th>
+          <th>Registered On</th>
+          <th class="actions-col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let alumni of pendingAlumni">
+          <td>
+            <div class="user-info">
+              <img [src]="alumni.profilePicture || 'assets/images/default-profile.jpg'" 
+                   [alt]="alumni.name" 
+                   class="user-avatar"
+                   (error)="onImageError($event)">
+              <span>{{alumni.name}}</span>
+            </div>
+          </td>
+          <td>{{alumni.email}}</td>
+          <td>{{alumni.batch}}</td>
+          <td>{{alumni.program}}</td>
+          <td>{{alumni.createdAt | date:'mediumDate'}}</td>
+          <td class="actions-col">
+            <button class="action-btn view-btn" (click)="viewDetails(alumni)" title="View Details">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="action-btn verify-btn" (click)="verifyAlumni(alumni._id)" title="Verify">
+              <i class="fas fa-check"></i>
+            </button>
+            <button class="action-btn reject-btn" (click)="rejectAlumni(alumni._id)" title="Reject">
+              <i class="fas fa-times"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Detail Modal -->
+  <div class="modal-overlay" *ngIf="showDetailModal" (click)="closeModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+      
+      <div class="modal-header">
+        <h2>Alumni Details</h2>
+        <button class="close-btn" (click)="closeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="modal-body" *ngIf="selectedAlumni">
+        
+        <div class="detail-section">
+          <h3>
+            <i class="fas fa-user"></i>
+            Personal Information
+          </h3>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="label">Name:</span>
+              <span class="value">{{selectedAlumni.name}}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Email:</span>
+              <span class="value">{{selectedAlumni.email}}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Phone:</span>
+              <span class="value">{{selectedAlumni.phone}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h3>
+            <i class="fas fa-graduation-cap"></i>
+            Academic Information
+          </h3>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="label">Batch:</span>
+              <span class="value">{{selectedAlumni.batch}}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Program:</span>
+              <span class="value">{{selectedAlumni.program}}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Roll Number:</span>
+              <span class="value">{{selectedAlumni.rollNumber}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-section" *ngIf="selectedAlumni.currentEmployer">
+          <h3>
+            <i class="fas fa-briefcase"></i>
+            Professional Information
+          </h3>
+          <div class="detail-grid">
+            <div class="detail-item" *ngIf="selectedAlumni.currentEmployer">
+              <span class="label">Employer:</span>
+              <span class="value">{{selectedAlumni.currentEmployer}}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedAlumni.designation">
+              <span class="label">Designation:</span>
+              <span class="value">{{selectedAlumni.designation}}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedAlumni.industry">
+              <span class="label">Industry:</span>
+              <span class="value">{{selectedAlumni.industry}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-section" *ngIf="selectedAlumni.location">
+          <h3>
+            <i class="fas fa-map-marker-alt"></i>
+            Location
+          </h3>
+          <p>{{selectedAlumni.location}}</p>
+        </div>
+
+        <div class="detail-section" *ngIf="selectedAlumni.bio">
+          <h3>
+            <i class="fas fa-align-left"></i>
+            Bio
+          </h3>
+          <p>{{selectedAlumni.bio}}</p>
+        </div>
+
+        <div class="detail-section" *ngIf="selectedAlumni.achievements">
+          <h3>
+            <i class="fas fa-trophy"></i>
+            Achievements
+          </h3>
+          <p>{{selectedAlumni.achievements}}</p>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-reject" (click)="rejectAlumni(selectedAlumni._id)">
+          <i class="fas fa-times"></i>
+          Reject
+        </button>
+        <button class="btn-verify" (click)="verifyAlumni(selectedAlumni._id)">
+          <i class="fas fa-check"></i>
+          Verify
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>

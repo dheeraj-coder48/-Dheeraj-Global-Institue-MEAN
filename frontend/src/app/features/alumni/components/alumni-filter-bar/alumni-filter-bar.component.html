@@ -1,0 +1,87 @@
+<div class="filter-bar">
+  
+  <!-- Search Bar -->
+  <div class="search-container">
+    <div class="search-wrapper">
+      <i class="fas fa-search search-icon"></i>
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="Search by name, company, or batch..."
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchInput()"
+      >
+      <button class="filter-toggle-btn" (click)="toggleFilters()">
+        <i class="fas fa-sliders-h"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Advanced Filters -->
+  <div class="filters-panel" [class.show]="showFilters">
+    
+    <div class="filters-grid">
+      
+      <!-- Batch Filter -->
+      <div class="filter-group">
+        <label class="filter-label">
+          <i class="fas fa-calendar-alt"></i>
+          Batch
+        </label>
+        <select class="filter-select" [(ngModel)]="selectedBatch" (ngModelChange)="onFilterChange()">
+          <option value="">All Batches</option>
+          <option *ngFor="let batch of batches" [value]="batch">{{batch}}</option>
+        </select>
+      </div>
+
+      <!-- Program Filter -->
+      <div class="filter-group">
+        <label class="filter-label">
+          <i class="fas fa-graduation-cap"></i>
+          Program
+        </label>
+        <select class="filter-select" [(ngModel)]="selectedProgram" (ngModelChange)="onFilterChange()">
+          <option value="">All Programs</option>
+          <option *ngFor="let program of programs" [value]="program">{{program}}</option>
+        </select>
+      </div>
+
+      <!-- Industry Filter -->
+      <div class="filter-group">
+        <label class="filter-label">
+          <i class="fas fa-building"></i>
+          Industry
+        </label>
+        <select class="filter-select" [(ngModel)]="selectedIndustry" (ngModelChange)="onFilterChange()">
+          <option value="">All Industries</option>
+          <option *ngFor="let industry of industries" [value]="industry">{{industry}}</option>
+        </select>
+      </div>
+
+      <!-- Sort By -->
+      <div class="filter-group">
+        <label class="filter-label">
+          <i class="fas fa-sort-amount-down"></i>
+          Sort By
+        </label>
+        <select class="filter-select" [(ngModel)]="sortBy" (ngModelChange)="onFilterChange()">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="name">Name</option>
+          <option value="batch">Batch</option>
+        </select>
+      </div>
+
+      <!-- Clear Filters -->
+      <div class="filter-group filter-actions">
+        <button class="clear-filters-btn" (click)="clearFilters()">
+          <i class="fas fa-times"></i>
+          Clear Filters
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

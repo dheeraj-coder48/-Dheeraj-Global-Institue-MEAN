@@ -7,10 +7,11 @@ import { NoticeDashboard } from './notice-dashboard/notice-dashboard';
 import { TeachersDashboard } from './teachers-dashboard/teachers-dashboard';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AlumniApprovalComponent } from './alumni-approval/alumni-approval.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, TeachersDashboard,FormsModule,ContactDashboard,EventsDashboard,GalleryDashboard,NoticeDashboard,FormsModule],
+  imports: [CommonModule, TeachersDashboard,FormsModule,ContactDashboard,EventsDashboard,GalleryDashboard,NoticeDashboard,FormsModule,AlumniApprovalComponent],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })

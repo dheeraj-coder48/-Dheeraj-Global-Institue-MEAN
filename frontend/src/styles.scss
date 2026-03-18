@@ -62,3 +62,63 @@ h2 {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Placeholder for broken images */
+img {
+  &[src=""], 
+  &[src="assets/images/placeholder.jpg"],
+  &[src="assets/images/image-placeholder.jpg"] {
+    display: inline-block;
+    background: linear-gradient(135deg, #e0e0e0, #f0f0f0);
+    min-width: 100px;
+    min-height: 100px;
+    position: relative;
+    
+    &::before {
+      content: "📷";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      opacity: 0.5;
+    }
+  }
+}
+
+/* Global image placeholder fallback */
+img {
+  &[src=""], 
+  &[src="data:image/jpeg;base64"],
+  &[src="data:image/jpeg;base64,"],
+  &[src="null"],
+  &[src="undefined"] {
+    display: inline-block;
+    background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+    min-width: 100px;
+    min-height: 100px;
+    position: relative;
+    
+    &::before {
+      content: "📷";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      opacity: 0.5;
+      z-index: 1;
+    }
+    
+    &::after {
+      content: "No Image";
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8rem;
+      color: #666;
+      white-space: nowrap;
+    }
+  }
+}

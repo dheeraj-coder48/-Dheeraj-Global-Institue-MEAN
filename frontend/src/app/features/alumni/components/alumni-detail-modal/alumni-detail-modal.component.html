@@ -1,0 +1,246 @@
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <div class="header-left">
+        <!-- FIXED: Use status for verification badge -->
+        <div class="verified-badge" *ngIf="alumni?.status === 'verified'" title="Verified Alumni">
+          <i class="fas fa-check-circle"></i>
+          <span>Verified</span>
+        </div>
+        <div class="pending-badge" *ngIf="alumni?.status === 'pending'" title="Pending Verification">
+          <i class="fas fa-clock"></i>
+          <span>Pending</span>
+        </div>
+        <!-- FIXED: Use isActive for active/inactive status -->
+        <div class="status-badge" 
+             [class.active]="alumni?.isActive === true" 
+             [class.inactive]="alumni?.isActive === false">
+          {{ alumni?.isActive ? 'Active' : 'Inactive' }}
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="header-btn edit-btn" (click)="editAlumni()" title="Edit Profile" *ngIf="false">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+        <button class="header-btn delete-btn" (click)="deleteAlumni()" title="Delete Profile" *ngIf="false">
+          <i class="fas fa-trash"></i>
+        </button>
+        <button class="header-btn close-btn" (click)="closeModal()" title="Close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+      
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <div class="profile-image">
+          <img 
+            [src]="alumni?.profilePicture || 'assets/images/default-profile.jpg'" 
+            [alt]="alumni?.name"
+            (error)="handleImageError($event)"
+          >
+        </div>
+        <div class="profile-info">
+          <h1 class="profile-name">{{ alumni?.name }}</h1>
+          <div class="profile-batch">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Batch of {{ alumni?.batch }}</span>
+          </div>
+          <div class="profile-program" [ngClass]="getProgramClass(alumni?.program || '')">
+            <i class="fas fa-graduation-cap"></i>
+            <span>{{ alumni?.program }}</span>
+          </div>
+          <div class="profile-location" *ngIf="alumni?.location">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>{{ alumni?.location }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-value">{{ alumni?.views || 0 }}</div>
+          <div class="stat-label">Profile Views</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">{{ alumni?.connections || 0 }}</div>
+          <div class="stat-label">Connections</div>
+        </div>
+        <div class="stat-item">
+          <!-- FIXED: Show verification status -->
+          <div class="stat-value">{{ alumni?.status === 'verified' ? '✓' : '⏳' }}</div>
+          <div class="stat-label">{{ alumni?.status === 'verified' ? 'Verified' : 'Pending' }}</div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="detail-tabs">
+        <button class="tab" [class.active]="activeTab === 'profile'" (click)="activeTab = 'profile'">
+          <i class="fas fa-user"></i>
+          Profile
+        </button>
+        <button class="tab" [class.active]="activeTab === 'achievements'" (click)="activeTab = 'achievements'">
+          <i class="fas fa-trophy"></i>
+          Achievements
+        </button>
+        <button class="tab" [class.active]="activeTab === 'contact'" (click)="activeTab = 'contact'">
+          <i class="fas fa-address-card"></i>
+          Contact
+        </button>
+      </div>
+
+      <!-- Tab Content - Profile -->
+      <div class="tab-content" *ngIf="activeTab === 'profile'">
+        
+        <!-- Current Position -->
+        <div class="info-card" *ngIf="alumni?.designation || alumni?.currentEmployer">
+          <h3 class="info-title">
+            <i class="fas fa-briefcase"></i>
+            Current Position
+          </h3>
+          <div class="info-content">
+            <div class="info-row" *ngIf="alumni?.designation">
+              <span class="info-label">Designation:</span>
+              <span class="info-value">{{ alumni?.designation }}</span>
+            </div>
+            <div class="info-row" *ngIf="alumni?.currentEmployer">
+              <span class="info-label">Organization:</span>
+              <span class="info-value">{{ alumni?.currentEmployer }}</span>
+            </div>
+            <div class="info-row" *ngIf="alumni?.industry">
+              <span class="info-label">Industry:</span>
+              <span class="info-value">{{ alumni?.industry }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bio -->
+        <div class="info-card" *ngIf="alumni?.bio">
+          <h3 class="info-title">
+            <i class="fas fa-align-left"></i>
+            About
+          </h3>
+          <div class="info-content">
+            <p class="bio-text">{{ alumni?.bio }}</p>
+          </div>
+        </div>
+
+        <!-- Academic Info -->
+        <div class="info-card">
+          <h3 class="info-title">
+            <i class="fas fa-graduation-cap"></i>
+            Academic Information
+          </h3>
+          <div class="info-content">
+            <div class="info-row">
+              <span class="info-label">Roll Number:</span>
+              <span class="info-value">{{ alumni?.rollNumber }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Program:</span>
+              <span class="info-value">{{ alumni?.program }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Batch:</span>
+              <span class="info-value">{{ alumni?.batch }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content - Achievements -->
+      <div class="tab-content" *ngIf="activeTab === 'achievements'">
+        <div class="info-card" *ngIf="alumni?.achievements; else noAchievements">
+          <h3 class="info-title">
+            <i class="fas fa-trophy"></i>
+            Achievements & Awards
+          </h3>
+          <div class="info-content">
+            <p class="achievements-text">{{ alumni?.achievements }}</p>
+          </div>
+        </div>
+        <ng-template #noAchievements>
+          <div class="empty-achievements">
+            <i class="fas fa-medal"></i>
+            <h3>No achievements listed yet</h3>
+            <p>This alumni hasn't added any achievements.</p>
+          </div>
+        </ng-template>
+      </div>
+
+      <!-- Tab Content - Contact -->
+      <div class="tab-content" *ngIf="activeTab === 'contact'">
+        
+        <!-- Contact Info -->
+        <div class="info-card">
+          <h3 class="info-title">
+            <i class="fas fa-address-card"></i>
+            Contact Information
+          </h3>
+          <div class="info-content">
+            <div class="contact-row" (click)="sendEmail()">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-details">
+                <span class="contact-label">Email</span>
+                <span class="contact-value">{{ alumni?.email }}</span>
+              </div>
+            </div>
+            
+            <div class="contact-row" (click)="callPhone()">
+              <div class="contact-icon">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <div class="contact-details">
+                <span class="contact-label">Phone</span>
+                <span class="contact-value">{{ alumni?.phone }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="info-card" *ngIf="alumni?.linkedin || alumni?.facebook || alumni?.instagram">
+          <h3 class="info-title">
+            <i class="fas fa-share-alt"></i>
+            Social Profiles
+          </h3>
+          <div class="social-links">
+            <a *ngIf="alumni?.linkedin" [href]="alumni?.linkedin" target="_blank" class="social-link linkedin">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a *ngIf="alumni?.facebook" [href]="alumni?.facebook" target="_blank" class="social-link facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a *ngIf="alumni?.instagram" [href]="alumni?.instagram" target="_blank" class="social-link instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+      <button class="btn-close" (click)="closeModal()">
+        <i class="fas fa-times"></i>
+        Close
+      </button>
+    </div>
+
+    <!-- Decorative Elements -->
+    <div class="modal-decoration">
+      <div class="decoration-circle"></div>
+      <div class="decoration-dots"></div>
+    </div>
+
+  </div>
+</div>

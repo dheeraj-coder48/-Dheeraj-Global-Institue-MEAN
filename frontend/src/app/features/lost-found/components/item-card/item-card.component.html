@@ -1,0 +1,78 @@
+<div class="item-card" [ngClass]="getTypeClass(item.type)" (click)="onCardClick()">
+  
+  <!-- Type Badge -->
+  <div class="type-badge" [ngClass]="item.type" (click)="$event.stopPropagation()">
+    <i class="fas" [ngClass]="item.type === 'lost' ? 'fa-exclamation-circle' : 'fa-check-circle'"></i>
+    <span>{{item.type === 'lost' ? 'LOST' : 'FOUND'}}</span>
+  </div>
+
+  <!-- Status Badge -->
+  <div class="status-badge" [ngClass]="getStatusClass(item.status)" *ngIf="item.status !== 'active'" (click)="$event.stopPropagation()">
+    <i class="fas" [ngClass]="item.status === 'resolved' ? 'fa-check' : 'fa-trash'"></i>
+    <span>{{item.status}}</span>
+  </div>
+
+  <!-- Image Container -->
+  <div class="card-image">
+    <img [src]="getFirstImage()" [alt]="item.itemName" class="item-image" (error)="handleImageError($event)">
+    
+    <!-- Image Count Badge -->
+    <div class="image-count-badge" *ngIf="getImageCount() > 1" (click)="$event.stopPropagation()">
+      <i class="fas fa-images"></i>
+      <span>{{getImageCount()}} photos</span>
+    </div>
+
+    <!-- Hover Overlay -->
+    <div class="image-overlay">
+      <i class="fas fa-search-plus"></i>
+      <span>View Details</span>
+    </div>
+  </div>
+
+  <!-- Item Details -->
+  <div class="card-content" (click)="$event.stopPropagation()">
+    <h3 class="item-title">{{item.itemName}}</h3>
+    
+    <div class="item-meta">
+      <div class="meta-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>{{item.location}}</span>
+      </div>
+      <div class="meta-item">
+        <i class="far fa-calendar"></i>
+        <span>{{item.date | date:'mediumDate'}}</span>
+      </div>
+    </div>
+
+    <!-- Category Badge -->
+    <div class="category-badge" [ngClass]="getCategoryClass(item.category)">
+      <i class="fas fa-tag"></i>
+      <span>{{item.category}}</span>
+    </div>
+
+    <!-- Description Preview -->
+    <p class="item-description">
+      {{item.description | slice:0:80}}{{item.description.length > 80 ? '...' : ''}}
+    </p>
+
+    <!-- Contact Info -->
+    <div class="contact-preview">
+      <i class="fas fa-user"></i>
+      <span>{{item.contactName}}</span>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="card-actions">
+      <button class="action-btn resolve-btn" *ngIf="item.status === 'active'" (click)="markAsResolved($event)">
+        <i class="fas fa-check-circle"></i>
+        <span>Found?</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Decorative Elements -->
+  <div class="card-decoration">
+    <div class="decoration-circle"></div>
+    <div class="decoration-dots"></div>
+  </div>
+</div>

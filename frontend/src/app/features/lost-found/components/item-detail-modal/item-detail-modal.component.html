@@ -1,0 +1,246 @@
+<div class="modal-overlay active" (click)="closeModal()">
+  <div class="modal-container" [ngClass]="getTypeClass()" (click)="$event.stopPropagation()">
+    
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <div class="header-left">
+        <div class="type-badge" [ngClass]="item?.type">
+          <i class="fas" [ngClass]="item?.type === 'lost' ? 'fa-exclamation-circle' : 'fa-check-circle'"></i>
+          <span>{{item?.type === 'lost' ? 'LOST' : 'FOUND'}}</span>
+        </div>
+        <div class="status-badge" [ngClass]="getStatusClass()" *ngIf="item?.status !== 'active'">
+          <i class="fas" [ngClass]="item?.status === 'resolved' ? 'fa-check' : 'fa-trash'"></i>
+          <span>{{item?.status}}</span>
+        </div>
+      </div>
+      <button class="modal-close" (click)="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+      
+      <!-- Two Column Layout -->
+      <div class="detail-grid">
+        
+        <!-- Left Column - Image Carousel -->
+        <div class="image-column">
+          <div class="carousel-container">
+            
+            <!-- Main Image -->
+            <div class="main-image">
+              <img [src]="images[currentImageIndex]" [alt]="item?.itemName" 
+     class="carousel-image" (error)="handleImageError($event)">
+              
+              <!-- Navigation Arrows -->
+              <button class="carousel-nav prev" (click)="prevImage()" *ngIf="images.length > 1">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="carousel-nav next" (click)="nextImage()" *ngIf="images.length > 1">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+
+              <!-- Image Counter -->
+              <div class="image-counter" *ngIf="images.length > 1">
+                <span>{{currentImageIndex + 1}} / {{images.length}}</span>
+              </div>
+            </div>
+
+            <!-- Thumbnail Strip -->
+            <div class="thumbnail-strip" *ngIf="images.length > 1">
+              <div class="thumbnail-item" 
+                   *ngFor="let image of images; let i = index"
+                   [class.active]="i === currentImageIndex"
+                   (click)="setImageIndex(i)">
+                <img [src]="image" alt="Thumbnail" class="thumbnail-img" 
+     (error)="handleImageError($event)">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right Column - Item Details -->
+        <div class="details-column">
+          
+          <!-- Item Name -->
+          <h2 class="item-title">{{item?.itemName}}</h2>
+
+          <!-- Category Badge -->
+          <div class="category-badge" [ngClass]="getCategoryClass(item?.category)">
+            <i class="fas fa-tag"></i>
+            <span>{{item?.category}}</span>
+          </div>
+
+          <!-- Description -->
+          <div class="detail-section">
+            <h3 class="section-title">
+              <i class="fas fa-align-left"></i>
+              Description
+            </h3>
+            <p class="description-text">{{item?.description}}</p>
+          </div>
+
+          <!-- Location & Date -->
+          <div class="detail-grid-mini">
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <span class="detail-label">Location</span>
+                <span class="detail-value">{{item?.location}}</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <i class="far fa-calendar"></i>
+              <div>
+                <span class="detail-label">Date</span>
+                <span class="detail-value">{{formatDate(item?.date)}}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Information Card -->
+          <div class="contact-card">
+            <h3 class="contact-title">
+              <i class="fas fa-address-card"></i>
+              Contact Information
+            </h3>
+            <div class="contact-info">
+              <div class="contact-row">
+                <i class="fas fa-user"></i>
+                <span>{{item?.contactName}}</span>
+              </div>
+              <div class="contact-row">
+                <i class="fas fa-phone"></i>
+                <a [href]="'tel:' + item?.contactPhone">{{item?.contactPhone}}</a>
+              </div>
+              <div class="contact-row">
+                <i class="fas fa-envelope"></i>
+                <a [href]="'mailto:' + item?.contactEmail">{{item?.contactEmail}}</a>
+              </div>
+              <div class="contact-row" *ngIf="item?.rollNumber">
+                <i class="fas fa-id-card"></i>
+                <span>Roll No: {{item?.rollNumber}}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resolution Info (if resolved) -->
+          <div class="resolution-card" *ngIf="item?.status === 'resolved' && item?.resolvedBy">
+            <h3 class="resolution-title">
+              <i class="fas fa-check-circle"></i>
+              Resolution Details
+            </h3>
+            <div class="resolution-info">
+              <div class="resolution-row">
+                <i class="fas fa-user"></i>
+                <span>Resolved by: {{item?.resolvedBy?.name}}</span>
+              </div>
+              <div class="resolution-row">
+                <i class="fas fa-phone"></i>
+                <span>{{item?.resolvedBy?.phone}}</span>
+              </div>
+              <div class="resolution-row" *ngIf="item?.resolvedBy?.email">
+                <i class="fas fa-envelope"></i>
+                <span>{{item?.resolvedBy?.email}}</span>
+              </div>
+              <div class="resolution-row" *ngIf="item?.resolvedDate">
+                <i class="fas fa-calendar"></i>
+                <span>{{item?.resolvedDate | date:'mediumDate'}}</span>
+              </div>
+              <div class="resolution-message" *ngIf="item?.resolvedMessage">
+                "{{item?.resolvedMessage}}"
+              </div>
+            </div>
+          </div>
+
+          <!-- Resolve Form (if active) -->
+          <div class="resolve-section" *ngIf="item?.status === 'active'">
+            <button class="resolve-toggle" (click)="toggleResolveForm()">
+              <i class="fas" [ngClass]="showResolveForm ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+              <span>{{showResolveForm ? 'Hide' : 'I found this item / This is mine'}}</span>
+            </button>
+
+            <div class="resolve-form" *ngIf="showResolveForm">
+              <h4>Please provide your details</h4>
+              
+              <div class="form-group">
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  placeholder="Your Name *"
+                  [(ngModel)]="resolveData.name"
+                >
+              </div>
+              
+              <div class="form-group">
+                <input 
+                  type="tel" 
+                  class="form-control" 
+                  placeholder="Phone Number *"
+                  [(ngModel)]="resolveData.phone"
+                >
+              </div>
+              
+              <div class="form-group">
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  placeholder="Email (Optional)"
+                  [(ngModel)]="resolveData.email"
+                >
+              </div>
+              
+              <div class="form-group">
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  placeholder="Roll Number (Optional)"
+                  [(ngModel)]="resolveData.rollNumber"
+                >
+              </div>
+              
+              <div class="form-group">
+                <textarea 
+                  class="form-control" 
+                  rows="3" 
+                  placeholder="Message (Optional)"
+                  [(ngModel)]="resolveData.message"
+                ></textarea>
+              </div>
+
+              <button class="submit-resolve" (click)="markAsResolved()" [disabled]="isSubmitting">
+                <span *ngIf="!isSubmitting">Confirm & Contact</span>
+                <span *ngIf="isSubmitting">
+                  <i class="fas fa-spinner fa-spin"></i> Submitting...
+                </span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+      <button class="btn-close" (click)="closeModal()">
+        <i class="fas fa-times"></i>
+        Close
+      </button>
+      <button class="btn-delete" *ngIf="false" (click)="deleteItem()"> <!-- Admin only -->
+        <i class="fas fa-trash"></i>
+        Delete
+      </button>
+    </div>
+
+    <!-- Decorative Elements -->
+    <div class="modal-decoration">
+      <div class="decoration-circle"></div>
+      <div class="decoration-dots"></div>
+    </div>
+
+  </div>
+</div>

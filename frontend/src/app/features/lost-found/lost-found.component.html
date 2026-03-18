@@ -1,0 +1,106 @@
+<div class="lost-found-page">
+  <div class="container">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <span class="header-subtitle">Help Reunite Lost Items</span>
+      <h1 class="header-title">Lost & Found</h1>
+      <p class="header-description">
+        Report lost items or browse found items. Together we can help reunite belongings with their owners.
+      </p>
+      <div class="header-decoration"></div>
+    </div>
+
+    <!-- Action Buttons - REMOVED data-bs-target and data-bs-toggle -->
+    <div class="action-buttons">
+      <button class="action-btn lost-btn" (click)="openPostModal('lost')">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>Report Lost Item</span>
+      </button>
+      <button class="action-btn found-btn" (click)="openPostModal('found')">
+        <i class="fas fa-check-circle"></i>
+        <span>Report Found Item</span>
+      </button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs-container">
+      <div class="tabs">
+        <button class="tab" [class.active]="activeTab === 'all'" (click)="onTabChange('all')">
+          <span>All Items</span>
+          <span class="tab-count">{{totalItems}}</span>
+        </button>
+        <button class="tab" [class.active]="activeTab === 'lost'" (click)="onTabChange('lost')">
+          <i class="fas fa-exclamation-circle"></i>
+          <span>Lost Items</span>
+        </button>
+        <button class="tab" [class.active]="activeTab === 'found'" (click)="onTabChange('found')">
+          <i class="fas fa-check-circle"></i>
+          <span>Found Items</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <app-filter-bar 
+      (filterChange)="onFilterChange($event)"
+      (search)="onSearch($event)"
+    ></app-filter-bar>
+
+    <!-- Items Grid -->
+    <div class="items-grid" *ngIf="!loading || items.length > 0">
+      <app-item-card 
+        *ngFor="let item of items" 
+        [item]="item"
+        (onResolved)="onItemResolved($event)"
+        (onDeleted)="onItemDeleted($event)"
+        (onClick)="openDetailModal(item)"
+      ></app-item-card>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-state" *ngIf="loading && items.length === 0">
+      <div class="spinner"></div>
+      <p>Loading items...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!loading && items.length === 0">
+      <i class="fas fa-box-open"></i>
+      <h3>No Items Found</h3>
+      <p>Be the first to report a lost or found item!</p>
+    </div>
+
+    <!-- Load More -->
+    <div class="load-more" *ngIf="hasMore && !loading">
+      <button class="load-more-btn" (click)="onLoadMore()">
+        <span>Load More</span>
+        <i class="fas fa-arrow-down"></i>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Post Modal - Custom Modal (Not Bootstrap) -->
+<div class="custom-modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="custom-modal-container" (click)="$event.stopPropagation()">
+    <app-item-form-modal 
+      [type]="selectedType"
+      (onClose)="closeModal()"
+      (onSubmit)="onItemPosted($event)"
+    ></app-item-form-modal>
+  </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="custom-modal-overlay" *ngIf="showDetailModal" (click)="closeDetailModal()">
+  <div class="custom-modal-container" (click)="$event.stopPropagation()">
+    <app-item-detail-modal 
+      [item]="selectedItem"
+      (onClose)="closeDetailModal()"
+      (onResolved)="onItemResolved($event)"
+      (onDeleted)="onItemDeleted($event)"
+    ></app-item-detail-modal>
+  </div>
+</div>

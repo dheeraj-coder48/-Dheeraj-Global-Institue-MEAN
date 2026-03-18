@@ -42,12 +42,6 @@
           </a>
         </li>
         
-        <li class="nav-item">
-          <a routerLink="/admission" routerLinkActive="active" class="nav-link">
-            <span class="link-text">Admission</span>
-            <span class="link-hover-effect"></span>
-          </a>
-        </li>
         
         <li class="nav-item">
           <a routerLink="/notices" routerLinkActive="active" class="nav-link">
@@ -76,7 +70,18 @@
             <span class="link-hover-effect"></span>
           </a>
         </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/lost-found" routerLinkActive="active">
+            <i class="fas fa-search"></i> Lost & Found
+          </a>
+        </li>
 
+        <li class="nav-item">
+  <a class="nav-link" routerLink="/alumni" routerLinkActive="active">
+    <i class="fas fa-user-graduate"></i> Alumni
+  </a>
+</li>
         <!-- Mega Dropdown for More Items -->
         <li class="nav-item dropdown">
           <button class="dropdown-trigger" (click)="toggleDropdown($event)">

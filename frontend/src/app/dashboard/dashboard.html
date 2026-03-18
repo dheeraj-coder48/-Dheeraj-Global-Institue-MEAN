@@ -8,9 +8,6 @@
         <i class="fas fa-chart-pie"></i>
       </div>
       <h1 class="header-title">Dashboard</h1>
-      <!-- <p class="header-description">
-        Manage all your school data from one central location
-      </p> -->
       <div class="header-decoration"></div>
     </div>
 
@@ -24,7 +21,7 @@
           <span>Select Dashboard:</span>
         </div>
 
-        <!-- Custom Select Dropdown -->
+        <!-- Custom Select Dropdown - ADDED ALUMNI OPTION -->
         <div class="custom-select-wrapper">
           <select 
             class="custom-select" 
@@ -36,6 +33,7 @@
             <option value="gallery">🖼️ Gallery Dashboard</option>
             <option value="notices">📢 Notices Dashboard</option>
             <option value="teachers">👨‍🏫 Teachers Dashboard</option>
+            <option value="alumni">🎓 Alumni Approval</option>  <!-- NEW OPTION -->
           </select>
           <div class="select-arrow">
             <i class="fas fa-chevron-down"></i>
@@ -60,7 +58,7 @@
     <!-- Dashboard Content Area -->
     <div class="content-area">
       
-      <!-- Dynamic Dashboard Components -->
+      <!-- Dynamic Dashboard Components - ADDED ALUMNI CASE -->
       <div class="content-wrapper">
         @switch(selectedMenu) {
           @case ('contact') {
@@ -77,6 +75,9 @@
           }
           @case ('teachers') {
             <app-teachers-dashboard></app-teachers-dashboard>
+          }
+          @case ('alumni') {  <!-- NEW CASE -->
+            <app-alumni-approval></app-alumni-approval>
           }
         }
       </div>

@@ -1,0 +1,402 @@
+<div class="modal-header">
+  <div class="modal-title-wrapper">
+    <i class="fas fa-user-graduate"></i>
+    <h2 class="modal-title">{{ isEdit ? 'Edit' : 'Register' }} Alumni Profile</h2>
+  </div>
+  <button class="modal-close" (click)="closeModal()">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="alumniForm" (ngSubmit)="onSubmit()" class="alumni-form">
+    
+    <!-- Tabs Navigation -->
+    <div class="form-tabs">
+      <div class="tab active">Personal Info</div>
+      <div class="tab">Academic</div>
+      <div class="tab">Professional</div>
+      <div class="tab">Social</div>
+    </div>
+
+    <!-- Personal Information Section -->
+    <div class="form-section">
+      <h3 class="section-title">
+        <i class="fas fa-user-circle"></i>
+        Personal Information
+      </h3>
+      
+      <div class="form-grid">
+        <!-- Name -->
+        <div class="form-group col-span-2">
+          <label class="form-label">
+            <i class="fas fa-user"></i>
+            <span>Full Name <span class="required-star">*</span></span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-user input-icon"></i>
+            <input
+              type="text"
+              formControlName="name"
+              class="form-control"
+              placeholder="Enter full name"
+            />
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="alumniForm.get('name')?.invalid && alumniForm.get('name')?.touched">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Name is required</span>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-envelope"></i>
+            <span>Email <span class="required-star">*</span></span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope input-icon"></i>
+            <input
+              type="email"
+              formControlName="email"
+              class="form-control"
+              placeholder="your@email.com"
+            />
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="alumniForm.get('email')?.invalid && alumniForm.get('email')?.touched">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Valid email is required</span>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-phone"></i>
+            <span>Phone <span class="required-star">*</span></span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-phone-alt input-icon"></i>
+            <input
+              type="tel"
+              formControlName="phone"
+              class="form-control"
+              placeholder="10-digit mobile number"
+              maxlength="10"
+            />
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="alumniForm.get('phone')?.invalid && alumniForm.get('phone')?.touched">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Valid 10-digit phone number is required</span>
+          </div>
+        </div>
+
+        <!-- Profile Picture -->
+        <div class="form-group col-span-2">
+          <label class="form-label">
+            <i class="fas fa-image"></i>
+            <span>Profile Picture URL</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-camera input-icon"></i>
+            <input
+              type="url"
+              formControlName="profilePicture"
+              class="form-control"
+              placeholder="https://example.com/photo.jpg"
+            />
+            <div class="input-highlight"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Academic Information Section -->
+    <div class="form-section">
+      <h3 class="section-title">
+        <i class="fas fa-graduation-cap"></i>
+        Academic Information
+      </h3>
+      
+      <div class="form-grid">
+        <!-- Batch -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Batch Year <span class="required-star">*</span></span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-chevron-down input-icon"></i>
+            <select formControlName="batch" class="form-control">
+              <option value="" disabled selected>Select batch</option>
+              <option *ngFor="let batch of batches" [value]="batch">{{batch}}</option>
+            </select>
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="alumniForm.get('batch')?.invalid && alumniForm.get('batch')?.touched">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Batch is required</span>
+          </div>
+        </div>
+
+        <!-- Program -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-book-open"></i>
+            <span>Program <span class="required-star">*</span></span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-chevron-down input-icon"></i>
+            <select formControlName="program" class="form-control">
+              <option value="" disabled selected>Select program</option>
+              <option *ngFor="let program of programs" [value]="program">{{program}}</option>
+            </select>
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="alumniForm.get('program')?.invalid && alumniForm.get('program')?.touched">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Program is required</span>
+          </div>
+        </div>
+
+        <!-- Roll Number -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-id-card"></i>
+            <span>Roll Number <span class="required-star">*</span></span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-id-badge input-icon"></i>
+            <input
+              type="text"
+              formControlName="rollNumber"
+              class="form-control"
+              placeholder="Enter roll number"
+            />
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="alumniForm.get('rollNumber')?.invalid && alumniForm.get('rollNumber')?.touched">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Roll number is required</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Professional Information Section -->
+    <div class="form-section">
+      <h3 class="section-title">
+        <i class="fas fa-briefcase"></i>
+        Professional Information
+      </h3>
+      
+      <div class="form-grid">
+        <!-- Current Employer -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-building"></i>
+            <span>Current Employer</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-building input-icon"></i>
+            <input
+              type="text"
+              formControlName="currentEmployer"
+              class="form-control"
+              placeholder="Company/Organization"
+            />
+            <div class="input-highlight"></div>
+          </div>
+        </div>
+
+        <!-- Designation -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-user-tie"></i>
+            <span>Designation</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-user-tie input-icon"></i>
+            <input
+              type="text"
+              formControlName="designation"
+              class="form-control"
+              placeholder="Job title"
+            />
+            <div class="input-highlight"></div>
+          </div>
+        </div>
+
+        <!-- Industry -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-chart-line"></i>
+            <span>Industry</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-chevron-down input-icon"></i>
+            <select formControlName="industry" class="form-control">
+              <option value="" selected>Select industry</option>
+              <option *ngFor="let industry of industries" [value]="industry">{{industry}}</option>
+            </select>
+            <div class="input-highlight"></div>
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Location</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-map-pin input-icon"></i>
+            <input
+              type="text"
+              formControlName="location"
+              class="form-control"
+              placeholder="City, Country"
+            />
+            <div class="input-highlight"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social Links Section -->
+    <div class="form-section">
+      <h3 class="section-title">
+        <i class="fas fa-share-alt"></i>
+        Social Links
+      </h3>
+      
+      <div class="form-grid">
+        <!-- LinkedIn -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fab fa-linkedin"></i>
+            <span>LinkedIn Profile</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fab fa-linkedin input-icon"></i>
+            <input
+              type="url"
+              formControlName="linkedin"
+              class="form-control"
+              placeholder="https://linkedin.com/in/username"
+            />
+            <div class="input-highlight"></div>
+          </div>
+        </div>
+
+        <!-- Facebook -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fab fa-facebook"></i>
+            <span>Facebook Profile</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fab fa-facebook input-icon"></i>
+            <input
+              type="url"
+              formControlName="facebook"
+              class="form-control"
+              placeholder="https://facebook.com/username"
+            />
+            <div class="input-highlight"></div>
+          </div>
+        </div>
+
+        <!-- Instagram -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fab fa-instagram"></i>
+            <span>Instagram Profile</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fab fa-instagram input-icon"></i>
+            <input
+              type="url"
+              formControlName="instagram"
+              class="form-control"
+              placeholder="https://instagram.com/username"
+            />
+            <div class="input-highlight"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bio & Achievements Section -->
+    <div class="form-section">
+      <h3 class="section-title">
+        <i class="fas fa-star"></i>
+        Bio & Achievements
+      </h3>
+      
+      <div class="form-grid">
+        <!-- Bio -->
+        <div class="form-group col-span-2">
+          <label class="form-label">
+            <i class="fas fa-align-left"></i>
+            <span>Bio / About</span>
+          </label>
+          <div class="input-wrapper textarea-wrapper">
+            <i class="fas fa-pen input-icon textarea-icon"></i>
+            <textarea
+              formControlName="bio"
+              class="form-control textarea"
+              rows="3"
+              placeholder="Write a short bio..."
+            ></textarea>
+            <div class="input-highlight"></div>
+          </div>
+        </div>
+
+        <!-- Achievements -->
+        <div class="form-group col-span-2">
+          <label class="form-label">
+            <i class="fas fa-trophy"></i>
+            <span>Achievements</span>
+          </label>
+          <div class="input-wrapper textarea-wrapper">
+            <i class="fas fa-trophy input-icon textarea-icon"></i>
+            <textarea
+              formControlName="achievements"
+              class="form-control textarea"
+              rows="3"
+              placeholder="List your achievements, awards, etc."
+            ></textarea>
+            <div class="input-highlight"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn-secondary" (click)="closeModal()">
+        <i class="fas fa-times"></i>
+        Cancel
+      </button>
+      <button 
+        type="submit" 
+        class="btn-primary" 
+        [disabled]="alumniForm.invalid || isSubmitting"
+      >
+        <span *ngIf="!isSubmitting">
+          <i class="fas fa-check"></i>
+          {{ isEdit ? 'Update Profile' : 'Register Alumni' }}
+        </span>
+        <span *ngIf="isSubmitting" class="btn-loader">
+          <i class="fas fa-spinner fa-spin"></i>
+          {{ isEdit ? 'Updating...' : 'Registering...' }}
+        </span>
+      </button>
+    </div>
+
+  </form>
+</div>

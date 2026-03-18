@@ -1,0 +1,88 @@
+<div class="alumni-card" (click)="onCardClick()">
+  
+  <!-- Profile Image -->
+  <div class="card-image">
+    <img 
+      [src]="alumni.profilePicture || 'assets/images/default-profile.jpg'" 
+      [alt]="alumni.name"
+      (error)="handleImageError($event)"
+    >
+    
+    <!-- Verified Badge - Show only if verified -->
+    <div class="verified-badge" *ngIf="alumni.status === 'verified'" title="Verified Alumni">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    
+    <!-- Pending Badge - Show if pending -->
+    <div class="pending-badge" *ngIf="alumni.status === 'pending'" title="Pending Verification">
+      <i class="fas fa-clock"></i>
+    </div>
+    
+    <!-- Status Badge - FIXED: Show active/inactive based on isActive, not status -->
+    <div class="status-badge" 
+         [class.active]="alumni.isActive === true" 
+         [class.inactive]="alumni.isActive === false">
+      {{ alumni.isActive ? 'Active' : 'Inactive' }}
+    </div>
+  </div>
+
+  <!-- Card Content -->
+  <div class="card-content">
+    <h3 class="alumni-name">{{ alumni.name }}</h3>
+    
+    <div class="alumni-batch">
+      <i class="fas fa-calendar-alt"></i>
+      <span>Batch of {{ alumni.batch }}</span>
+    </div>
+    
+    <div class="alumni-program" [ngClass]="getProgramClass(alumni.program)">
+      <i class="fas fa-graduation-cap"></i>
+      <span>{{ alumni.program }}</span>
+    </div>
+    
+    <!-- Current Position (if available) -->
+    <div class="alumni-position" *ngIf="alumni.designation">
+      <i class="fas fa-briefcase"></i>
+      <span>{{ alumni.designation }}</span>
+    </div>
+    
+    <div class="alumni-company" *ngIf="alumni.currentEmployer">
+      <i class="fas fa-building"></i>
+      <span>{{ alumni.currentEmployer }}</span>
+    </div>
+    
+    <!-- Location (if available) -->
+    <div class="alumni-location" *ngIf="alumni.location">
+      <i class="fas fa-map-marker-alt"></i>
+      <span>{{ alumni.location }}</span>
+    </div>
+    
+    <!-- Stats -->
+    <div class="alumni-stats">
+      <div class="stat-item">
+        <i class="fas fa-eye"></i>
+        <span>{{ alumni.views || 0 }}</span>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-handshake"></i>
+        <span>{{ alumni.connections || 0 }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Actions (will be conditionally shown) -->
+  <div class="card-actions" *ngIf="false"> <!-- Replace with admin check -->
+    <button class="action-btn edit-btn" (click)="onEditClick($event)" title="Edit Alumni">
+      <i class="fas fa-pencil-alt"></i>
+    </button>
+    <button class="action-btn delete-btn" (click)="onDeleteClick($event)" title="Delete Alumni">
+      <i class="fas fa-trash"></i>
+    </button>
+  </div>
+
+  <!-- Decorative Elements -->
+  <div class="card-decoration">
+    <div class="decoration-circle"></div>
+    <div class="decoration-dots"></div>
+  </div>
+</div>

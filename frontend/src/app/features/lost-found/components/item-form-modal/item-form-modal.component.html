@@ -1,0 +1,288 @@
+<div class="modal-header">
+  <div class="modal-title-wrapper">
+    <i class="fas" [ngClass]="type === 'lost' ? 'fa-exclamation-triangle' : 'fa-check-circle'"></i>
+    <h2 class="modal-title">{{ editData ? 'Edit' : 'Report' }} {{ type === 'lost' ? 'Lost' : 'Found' }} Item</h2>
+  </div>
+  <button class="modal-close" (click)="closeModal()">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="itemForm" (ngSubmit)="onSubmitForm()" class="item-form">
+    
+    <!-- Two Column Layout -->
+    <div class="form-grid">
+      
+      <!-- Left Column -->
+      <div class="form-left">
+        
+        <!-- Item Name -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-tag"></i>
+            <span>Item Name <span class="required-star">*</span></span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-box input-icon"></i>
+            <input
+              type="text"
+              formControlName="itemName"
+              class="form-control"
+              placeholder="e.g., Laptop, Water Bottle, ID Card"
+            />
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="itemForm.get('itemName')?.invalid && itemForm.get('itemName')?.touched">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Item name is required</span>
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-list"></i>
+            <span>Category <span class="required-star">*</span></span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-chevron-down input-icon"></i>
+            <select formControlName="category" class="form-control">
+              <option value="" disabled selected>Select category</option>
+              <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+            </select>
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="itemForm.get('category')?.invalid && itemForm.get('category')?.touched">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Category is required</span>
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Location <span class="required-star">*</span></span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-map-pin input-icon"></i>
+            <input
+              type="text"
+              formControlName="location"
+              class="form-control"
+              placeholder="Where was it lost/found?"
+            />
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="itemForm.get('location')?.invalid && itemForm.get('location')?.touched">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Location is required</span>
+          </div>
+        </div>
+
+        <!-- Date -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-calendar"></i>
+            <span>Date <span class="required-star">*</span></span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-calendar-alt input-icon"></i>
+            <input
+              type="date"
+              formControlName="date"
+              class="form-control"
+              [max]="getTodayDate()"
+            />
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="itemForm.get('date')?.invalid && itemForm.get('date')?.touched">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Date is required</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column -->
+      <div class="form-right">
+
+        <!-- Contact Name -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-user"></i>
+            <span>Your Name <span class="required-star">*</span></span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-user-circle input-icon"></i>
+            <input
+              type="text"
+              formControlName="contactName"
+              class="form-control"
+              placeholder="Full name"
+            />
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="itemForm.get('contactName')?.invalid && itemForm.get('contactName')?.touched">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Name is required</span>
+          </div>
+        </div>
+
+        <!-- Contact Phone -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-phone"></i>
+            <span>Phone Number <span class="required-star">*</span></span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-phone-alt input-icon"></i>
+            <input
+              type="tel"
+              formControlName="contactPhone"
+              class="form-control"
+              placeholder="10-digit mobile number"
+              maxlength="10"
+            />
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="itemForm.get('contactPhone')?.invalid && itemForm.get('contactPhone')?.touched">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Valid 10-digit phone number is required</span>
+          </div>
+        </div>
+
+        <!-- Contact Email -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-envelope"></i>
+            <span>Email <span class="required-star">*</span></span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope input-icon"></i>
+            <input
+              type="email"
+              formControlName="contactEmail"
+              class="form-control"
+              placeholder="your@email.com"
+            />
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="itemForm.get('contactEmail')?.invalid && itemForm.get('contactEmail')?.touched">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Valid email is required</span>
+          </div>
+        </div>
+
+        <!-- Roll Number (Optional) -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-id-card"></i>
+            <span>Roll Number <span class="optional-text">(Optional)</span></span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fas fa-id-badge input-icon"></i>
+            <input
+              type="text"
+              formControlName="rollNumber"
+              class="form-control"
+              placeholder="Student roll number"
+            />
+            <div class="input-highlight"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Description (Full Width) -->
+    <div class="form-group full-width">
+      <label class="form-label">
+        <i class="fas fa-align-left"></i>
+        <span>Description <span class="required-star">*</span></span>
+      </label>
+      <div class="input-wrapper textarea-wrapper">
+        <i class="fas fa-pen input-icon textarea-icon"></i>
+        <textarea
+          formControlName="description"
+          class="form-control textarea"
+          rows="4"
+          placeholder="Describe the item in detail (color, brand, distinguishing features...)"
+        ></textarea>
+        <div class="input-highlight"></div>
+      </div>
+      <div class="error-message" *ngIf="itemForm.get('description')?.invalid && itemForm.get('description')?.touched">
+        <i class="fas fa-exclamation-circle"></i>
+        <span>Description is required</span>
+      </div>
+    </div>
+
+<!-- Image URLs input - add (input) event -->
+<div class="form-group full-width">
+  <label class="form-label">
+    <i class="fas fa-images"></i>
+    <span>Image URLs <span class="required-star">*</span></span>
+  </label>
+  <div class="input-wrapper">
+    <i class="fas fa-link input-icon"></i>
+    <input
+      type="text"
+      formControlName="imagesUrl"
+      class="form-control"
+      placeholder="Enter image URLs (comma-separated)"
+      (input)="onImagesUrlChange()"
+    />
+    <div class="input-highlight"></div>
+  </div>
+  <div class="help-text">
+    <i class="fas fa-info-circle"></i>
+    <span>Separate multiple URLs with commas</span>
+  </div>
+  <div class="error-message" *ngIf="itemForm.get('imagesUrl')?.invalid && itemForm.get('imagesUrl')?.touched">
+    <i class="fas fa-exclamation-circle"></i>
+    <span>At least one image URL is required</span>
+  </div>
+</div>
+
+<!-- Image Preview - fix error handler -->
+<div class="preview-section" *ngIf="previewImages.length > 0">
+  <label class="preview-label">
+    <i class="fas fa-eye"></i>
+    <span>Image Preview</span>
+  </label>
+  <div class="preview-grid">
+    <div class="preview-item" *ngFor="let url of previewImages; let i = index">
+      <img [src]="url" alt="Preview" class="preview-img" (error)="handleImageError($event)">
+      <button class="remove-image" (click)="removeImage(i)" type="button">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn-secondary" (click)="closeModal()">
+        <i class="fas fa-times"></i>
+        Cancel
+      </button>
+      <button 
+        type="submit" 
+        class="btn-primary" 
+        [disabled]="itemForm.invalid || isSubmitting"
+      >
+        <span *ngIf="!isSubmitting">
+          <i class="fas fa-check"></i>
+          {{ editData ? 'Update' : 'Submit' }}
+        </span>
+        <span *ngIf="isSubmitting" class="btn-loader">
+          <i class="fas fa-spinner fa-spin"></i>
+          Submitting...
+        </span>
+      </button>
+    </div>
+
+  </form>
+</div>

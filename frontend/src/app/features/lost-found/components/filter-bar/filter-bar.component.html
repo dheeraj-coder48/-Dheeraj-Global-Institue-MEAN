@@ -1,0 +1,76 @@
+<div class="filter-bar">
+  
+  <!-- Search Bar -->
+  <div class="search-container">
+    <div class="search-wrapper">
+      <i class="fas fa-search search-icon"></i>
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="Search by item name or description..."
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchInput()"
+      >
+      <button class="filter-toggle-btn" (click)="toggleFilters()">
+        <i class="fas fa-sliders-h"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Advanced Filters -->
+  <div class="filters-panel" [class.show]="showFilters">
+    
+    <div class="filters-grid">
+      
+      <!-- Category Filter -->
+      <div class="filter-group">
+        <label class="filter-label">
+          <i class="fas fa-tags"></i>
+          Category
+        </label>
+        <select class="filter-select" [(ngModel)]="selectedCategory" (ngModelChange)="onFilterChange()">
+          <option *ngFor="let cat of categories" [value]="cat.value">
+            {{cat.label}}
+          </option>
+        </select>
+      </div>
+
+      <!-- Location Filter -->
+      <div class="filter-group">
+        <label class="filter-label">
+          <i class="fas fa-map-marker-alt"></i>
+          Location
+        </label>
+        <select class="filter-select" [(ngModel)]="selectedLocation" (ngModelChange)="onFilterChange()">
+          <option *ngFor="let loc of locations" [value]="loc.value">
+            {{loc.label}}
+          </option>
+        </select>
+      </div>
+
+      <!-- Sort By -->
+      <div class="filter-group">
+        <label class="filter-label">
+          <i class="fas fa-sort-amount-down"></i>
+          Sort By
+        </label>
+        <select class="filter-select" [(ngModel)]="sortBy" (ngModelChange)="onFilterChange()">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="name">Item Name</option>
+        </select>
+      </div>
+
+      <!-- Clear Filters -->
+      <div class="filter-group filter-actions">
+        <button class="clear-filters-btn" (click)="clearFilters()">
+          <i class="fas fa-times"></i>
+          Clear Filters
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

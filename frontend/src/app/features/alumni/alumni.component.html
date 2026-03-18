@@ -1,0 +1,146 @@
+<div class="alumni-page">
+  <div class="container">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <span class="header-subtitle">Our Distinguished Alumni</span>
+      <h1 class="header-title">Alumni Network</h1>
+      <p class="header-description">
+        Connect with our successful alumni, expand your network, and be part of our growing community.
+      </p>
+      <div class="header-decoration"></div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-value">{{totalAlumni}}</span>
+          <span class="stat-label">Total Alumni</span>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-value">{{verifiedAlumni}}</span>
+          <span class="stat-label">Verified</span>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-value">{{batchDistribution.length}}</span>
+          <span class="stat-label">Batches</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Button -->
+    <div class="cta-section">
+      <button class="cta-btn" (click)="openAddModal()">
+        <i class="fas fa-user-plus"></i>
+        <span>Register as Alumni</span>
+      </button>
+    </div>
+
+    <!-- Featured Alumni Section -->
+    <div class="featured-section" *ngIf="featuredAlumni.length > 0">
+      <h2 class="section-title">
+        <i class="fas fa-star"></i>
+        Featured Alumni
+      </h2>
+      <div class="featured-grid">
+        <div class="featured-card" *ngFor="let alumni of featuredAlumni" (click)="openDetailModal(alumni)">
+          <div class="featured-image">
+            <img [src]="alumni.profilePicture || 'assets/images/default-profile.jpg'" [alt]="alumni.name">
+          </div>
+          <div class="featured-info">
+            <h3>{{alumni.name}}</h3>
+            <p>{{alumni.designation}} at {{alumni.currentEmployer}}</p>
+            <span class="featured-badge">{{alumni.batch}} Batch</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <app-alumni-filter-bar 
+      [batches]="batches"
+      [programs]="programs"
+      [industries]="industries"
+      (filterChange)="onFilterChange($event)"
+      (search)="onSearch($event)"
+    ></app-alumni-filter-bar>
+
+    <!-- Alumni Grid -->
+    <div class="alumni-grid" *ngIf="!loading || alumni.length > 0">
+      <app-alumni-card 
+        *ngFor="let alumni of alumni" 
+        [alumni]="alumni"
+        (onClick)="onAlumniClick($event)"
+        (onEdit)="openEditModal($event)"
+        (onDelete)="onAlumniDeleted($event)"
+      ></app-alumni-card>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-state" *ngIf="loading && alumni.length === 0">
+      <div class="spinner"></div>
+      <p>Loading alumni...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!loading && alumni.length === 0">
+      <i class="fas fa-user-graduate"></i>
+      <h3>No Alumni Found</h3>
+      <p>Be the first to register in our alumni network!</p>
+      <button class="empty-state-btn" (click)="openAddModal()">
+        <i class="fas fa-user-plus"></i>
+        Register Now
+      </button>
+    </div>
+
+    <!-- Load More -->
+    <div class="load-more" *ngIf="hasMore && !loading">
+      <button class="load-more-btn" (click)="onLoadMore()">
+        <span>Load More</span>
+        <i class="fas fa-arrow-down"></i>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Form Modal -->
+<div class="custom-modal-overlay" *ngIf="showFormModal" (click)="closeFormModal()">
+  <div class="custom-modal-container" (click)="$event.stopPropagation()">
+    <app-alumni-form-modal 
+      [alumni]="selectedAlumni"
+      [isEdit]="isEditMode"
+      (onClose)="closeFormModal()"
+      (onCreate)="onAlumniCreated($event)"
+      (onUpdate)="onAlumniUpdated($event)"
+    ></app-alumni-form-modal>
+  </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="custom-modal-overlay" *ngIf="showDetailModal" (click)="closeDetailModal()">
+  <div class="custom-modal-container" (click)="$event.stopPropagation()">
+    <app-alumni-detail-modal 
+      [alumni]="selectedAlumni"
+      (onClose)="closeDetailModal()"
+      (onEdit)="openEditModal($event)"
+      (onDelete)="onAlumniDeleted($event)"
+    ></app-alumni-detail-modal>
+  </div>
+</div>
